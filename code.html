@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset='UTF-8' />
+  <title>在线编程并运行</title>
+  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.52.2/codemirror.min.css' />
+  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.52.2/theme/dracula.min.css' />
+  <link rel="stylesheet" href="https://unpkg.com/xterm/css/xterm.css" />
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background-color: #f6f6f6;
+    }
+    
+    h1 {
+      text-align: center;
+      font-size: 36px;
+      margin-top: 50px;
+      margin-bottom: 30px;
+    }
+
+    #wrapper {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      max-width: 1200px;
+      margin: auto;
+      padding: 50px 20px;
+    }
+
+    #editor {
+      height: 500px;
+      width: 48%;
+      margin-right: 20px;
+    }
+
+    #terminal {
+      height: 500px;
+      width: 48%;
+      margin-left: 20px;
+    }
+
+    #output {
+      width: 100%;
+      height: 200px;
+      margin-top: 30px;
+      padding: 10px;
+      font-size: 16px;
+      line-height: 1.5;
+      background-color: #fff;
+      border-radius: 4px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .form-controls {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 30px;
+    }
+
+    label {
+      font-size: 18px;
+      margin-right: 10px;
+    }
+
+    select {
+      font-size: 16px;
+      padding: 6px;
+      border-radius: 4px;
+      border: none;
+      margin-right: 20px;
+      outline: none;
+    }
+
+    button {
+      font-size: 16px;
+      padding: 10px 16px;
+      border-radius: 4px;
+      border: none;
+      outline: none;
+      background-color: #2ecc71;
+      color: #fff;
+      cursor: pointer;
+      transition: all 0.3s ease-in-out;
+    }
+
+    button:hover {
+      background-color: #27ae60;
+    }
+
+    @media screen and (max-width: 768px) {
+      #wrapper {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      #editor,
+      #terminal {
+        width: 100%;
+        margin: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>在线编程并运行</h1>
+
+  <div id="wrapper">
+    <div id="editor"></div>
+
+    <div id="terminal"></div>
+
+    <textarea id="output" readonly></textarea>
+    
+    <div class="form-controls">
+      <label for="language">选择编程语言:</label>
+      <select id="language" name="language">
+        <option value="c_cpp">C/C++</option>
+        <option value="python">Python</option>
+        <option value="javascript">JavaScript</option>
+      </select>
+      <button onclick='submitCode()'>运行</button>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.1/socket.io.slim.js"></script>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.52.2/codemirror.min.js'></script>
+  <script src="https://unpkg.com/xterm/lib/xterm.js"></script>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.52.2/mode/clike/clike.min.js'></script>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.52.2/mode/python/python.min.js'></script>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.52.2/mode/javascript/javascript.min.js'></script>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.52.2/mode/xml/xml.min.js'></script>
+<script src="https://unpkg.com/xterm/lib/addons/fit/fit.js"></script>
+
+<script>
+// Create editor
+const editor = CodeMirror(document.getElementById('editor'), {
+mode: 'text/x-c++src',
+lineNumbers: true,
+indentUnit: 2,
+tabSize: 2,
+matchBrackets: true,
+autoCloseBrackets: true,
+theme: 'dracula'
+})
+
+// Create terminal
+const term = new Terminal()
+const terminalContainer = document.getElementById('terminal')
+term.open(terminalContainer)
+term.fit()
+
+// Connect to socket
+const socket = io.connect('http://localhost:3000')
+let sessionID = ''
+
+let logBuffer = ''
+let errorBuffer = ''
+let debugBuffer = ''
+let cmdInProgress = false
+
+// Handle output from server
+socket.on('output', function (data) {
+  if (data.type === 'stdout') {
+    term.write(data.buffer)
+    logBuffer += data.buffer
+  } else if (data.type === 'stderr') {
+    term.write(data.buffer)
+    errorBuffer += data.buffer
+  } else if (data.type === 'debug') {
+    debugBuffer += data.buffer
+  }
+})
+
+// Send input to server
+term.onData(function (data) {
+  if (cmdInProgress) {
+    return
+  }
+  socket.emit('stdin', { data: data, sid: sessionID })
+})
+
+// Submit code
+function submitCode() {
+  term.clear()
+  logBuffer =''
+errorBuffer = ''
+debugBuffer = ''
+cmdInProgress = false
+document.getElementById('output').value = ''
+
+const code = editor.getValue()
+const language = document.getElementById('language').value
+const dependencies = dependenciesMap[language]
+
+// Install dependencies
+const xhr1 = new XMLHttpRequest()
+xhr1.onreadystatechange = function() {
+if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
+const sid1 = this.responseText
+sessionID = sid1
+socket.emit('run', { sid: sid1, language: language, code: code, dependencies: dependencies })
+}
+}
+xhr1.open('POST', '/install_dependencies')
+xhr1.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
+xhr1.send(`dependencies=${encodeURIComponent(dependencies)}`)
+//xhr1.send(dependencies=${encodeURIComponent(dependencies)})
+
+  // Display output
+  setTimeout(function () {
+    term.write(`\r\n[${language}] Installing dependencies...\r\n`)
+  }, 100)
+  setTimeout(function () {
+    cmdInProgress = true
+    term.write(`\r\n`)
+  }, 5000)
+  setTimeout(function () {
+    cmdInProgress = false
+    term.write(`[${language}] Dependencies installed.\r\n`)
+  }, 6000)
+  setTimeout(function () {
+    cmdInProgress = false
+    term.write(`[${language}] Running code...\r\n`)
+  }, 7000)
+}
+
+// Dependencies map
+const dependenciesMap = {
+  'c_cpp': '',
+  'python': 'numpy scipy matplotlib',
+  'javascript': ''
+}
+
+// Set default language
+document.getElementById('language').value = 'c_cpp'
+
+// Handle language selection
+document.getElementById('language').addEventListener('change', function(event) {
+  const language = event.target.value
+  editor.setOption('mode', `text/x-${language}src`)
+})
+</script> </body> </html>
