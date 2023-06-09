@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>马里兰容量曲线</title>
+    <meta charset="utf-8">
+    <style>
+        body {
+            background-color: #f6f6f6;
+        }
+        .datawrapper-charts {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 50px;
+        }
+        .datawrapper-chart {
+            width: 48%;
+            height: 50vh;
+        }
+        .datawrapper-chart iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        .dropdown {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            display: inline-block;
+        }
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            z-index: 1;
+            background-color: white;
+            width: 120px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            top: -40px; /* 负数值将下拉菜单向上移动 */
+            transform: translateY(50%);
+            text-align: center;
+        }
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+        .dropdown-content a {
+            color: black;
+            text-decoration: none;
+            display: block;
+            padding: 8px;
+        }
+        .dropdown-content a:hover {
+            background-color: #f1f1f1;
+        }
+        .btn-select {
+            background: #73d44c;
+            border: none;
+            border-radius: 3px;
+            color: #333;
+            cursor: pointer;
+            font-size: 18px;
+            padding: 8px 10px;
+            transition: 0.2s ease-in-out;
+            z-index: 2;
+            opacity: 0.9;
+        }
+        .btn-select:hover {
+            background: #ccc;
+        }
+    </style>
+</head>
+<body>
+    <div class="dropdown">
+        <button class="btn-select">Select Chart</button>
+        <div class="dropdown-content">
+            <a href="https://datawrapper.dwcdn.net/hgnCF/">1</a>
+            <a href="mll33.html">电压曲线</a>
+            <a href="https://datawrapper.dwcdn.net/kKvKk/">3</a>
+            <a href="马里兰容量曲线.html">容量曲线</a>
+        </div>
+    </div>
+    <div class="datawrapper-charts">
+        <div class="datawrapper-chart">
+            <iframe src="https://datawrapper.dwcdn.net/hgnCF/" scrolling="no" frameborder="0" allowfullscreen="true"></iframe>
+        </div>
+        <div class="datawrapper-chart">
+            <iframe src="visual4.html" scrolling="no" frameborder="0" allowfullscreen="true"></iframe>
+        </div>
+    </div>
+    <div class="datawrapper-charts">
+        <div class="datawrapper-chart">
+            <iframe src="visual3.html" scrolling="no" frameborder="0" allowfullscreen="true"></iframe>
+        </div>
+        <div class="datawrapper-chart">
+            <iframe src="visual5.html" scrolling="no" frameborder="0" allowfullscreen="true"></iframe>
+        </div>
+    </div>
+    <script>
+        const btnSelect = document.querySelector('.btn-select');
+        const dropdown = document.querySelector('.dropdown');
+        const dropdownContent = document.querySelector('.dropdown-content');
+        const dropdownLinks = document.querySelectorAll('.dropdown-content a');
+
+        function showDropdown() {
+            dropdownContent.style.display = 'block';
+        }
+
+        function hideDropdown() {
+            dropdownContent.style.display = 'none';
+        }
+
+        function switchChart(event) {
+    const chartLink = event.target.getAttribute('href');
+    window.location.href = chartLink;
+    event.preventDefault();
+}
+        btnSelect.addEventListener('click', showDropdown);
+        dropdownLinks.forEach((link, index) => {
+            link.dataset.index = index;
+            link.addEventListener('click', switchChart)
+        });
+        document.addEventListener('click', (event) => {
+            const isClickInside = dropdown.contains(event.target) || event.target === btnSelect;
+            if (!isClickInside) {
+                hideDropdown();
+            }
+        });
+    </script>
+</body>
+</html>

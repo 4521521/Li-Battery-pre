@@ -1,0 +1,1467 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>NASA数据集</title>
+    <style>
+      /* 样式表 */
+
+.filter-container {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.filter-input {
+  border: none;
+  border-bottom: 2px solid #050604;
+  padding: 6px 12px;
+  font-size: 16px;
+  color: #333;
+  background-color: transparent;
+  vertical-align: middle;
+}
+
+.filter-select {
+  border: none;
+  border-bottom: 2px solid #a2d73e;
+  padding: 6px 12px;
+  font-size: 16px;
+  color: #333;
+  background-color: transparent;
+  vertical-align: middle;
+}
+
+.filter-button {
+  border: none;
+  padding: 6px 12px;
+  font-size: 16px;
+  color: #fff;
+  border-radius: 5px;
+  background-color: #a2d73e;
+  cursor: pointer;
+  vertical-align: middle;
+}
+
+.table-container {
+  overflow-x: auto;
+  margin: 10px 0;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+  box-shadow: 0 0 10px rgba(0,0,0,0.2);
+}
+
+th,
+td {
+  border: none;
+  text-align: left;
+  padding: 8px;
+}
+
+th {
+  background-color: #cce0a6;
+  color: #0b0b0b;
+}
+
+tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.page-link {
+  border: 1px solid #ddd;
+  padding: 5px 10px;
+  cursor: pointer;
+  background-color: transparent;
+  color: #333;
+  margin: 0 5px;
+  border-radius: 5px;
+}
+
+.page-link.active {
+  background-color: #a2d73e;
+  color: #fff;
+}
+
+.page-link.disabled {
+  color: #aaa;
+  cursor: default;
+  background-color: transparent;
+}
+
+.pagination-input-container {
+  margin-left: 20px;
+}
+
+.go-to-page-input {
+  width: 50px;
+  margin-right: 5px;
+  padding: 5px;
+  border: none;
+  border-bottom: 2px solid #a2d73e;
+  background-color: transparent;
+  font-size: 16px;
+  color: #333;
+}
+
+.go-to-page-button {
+  border: none;
+  padding: 6px 12px;
+  font-size: 16px;
+  color: #fff;
+  border-radius: 5px;
+  background-color: #a2d73e;
+  cursor: pointer;
+  vertical-align: middle;
+}
+    </style>
+  </head>
+
+  <body>
+    <h1>NASA数据集</h1>
+
+    <div class="filter-container">
+      <!--
+      <div>
+        <label for="name-filter">Name:</label>
+        <input type="text" id="name-filter" class="filter-input" />
+      </div>
+      -->
+      <div>
+        <label for="name-filter">Name:</label>
+        <select id="name-filter" class="filter-select">
+          <option value="">All</option>
+          <option value="NASAdata1(34)">NASAdata1(34)</option>
+          <option value="NASAdata2(28)">NASAdata2(28)</option>
+        </select>
+      </div>
+      <div>
+        <label for="capacity-filter">电池编号:</label>
+        <select id="capacity-filter" class="filter-select">
+          <option value="">All</option>
+          <option value="2">2</option>
+          <option value="5">5</option>
+          <option value="6">6</option>
+          <option value="7">7</option>
+          <option value="8">8</option>
+          <option value="26">26</option>
+          <option value="27">27</option>
+          <option value="28">28</option>
+          <option value="29">29</option>
+          <option value="30">30</option>
+          <option value="31">31</option>
+          <option value="32">32</option>
+          <option value="33">33</option>
+          <option value="34">34</option>
+          <option value="36">36</option>
+          <option value="38">38</option>
+          <option value="39">39</option>
+          <option value="40">40</option>
+          <option value="41">41</option>
+          <option value="42">42</option>
+          <option value="43">43</option>
+          <option value="44">44</option>
+          <option value="45">45</option>
+          <option value="46">46</option>
+          <option value="47">47</option>
+          <option value="48">48</option>
+          <option value="49">49</option>
+          <option value="50">50</option>
+          <option value="51">51</option>
+          <option value="52">52</option>
+          <option value="53">53</option>
+          <option value="54">54</option>
+          <option value="55">55</option>
+          <option value="56">56</option>
+
+          <option value="RW1">RW1</option>
+          <option value="RW2">RW2</option>
+          <option value="RW3">RW3</option>
+          <option value="RW4">RW4</option>
+          <option value="RW5">RW5</option>
+          <option value="RW6">RW6</option>
+          <option value="RW7">RW7</option>
+          <option value="RW8">RW8</option>
+          <option value="RW9">RW9</option>
+          <option value="RW10">RW10</option>
+          <option value="RW11">RW11</option>
+          <option value="RW12">RW12</option>
+          <option value="RW13">RW13</option>
+          <option value="RW14">RW14</option>
+          <option value="RW15">RW15</option>
+          <option value="RW16">RW16</option>
+          <option value="RW17">RW17</option>
+          <option value="RW18">RW18</option>
+          <option value="RW19">RW19</option>
+          <option value="RW20">RW20</option>
+          <option value="RW21">RW21</option>
+          <option value="RW22">RW22</option>
+          <option value="RW23">RW23</option>
+          <option value="RW24">RW24</option>
+          <option value="RW25">RW25</option>
+          <option value="RW26">RW26</option>
+          <option value="RW27">RW27</option>
+          <option value="RW28">RW28</option>
+
+        </select>
+      </div>
+      <div>
+        <label for="voltage-filter">型号:</label>
+        <select id="voltage-filter" class="filter-select">
+          <option value="">All</option>
+          <option value="18650">18650</option>
+        </select>
+      </div>
+    <div>
+      <label for="shape-filter">形状:</label>
+      <select id="shape-filter" class="filter-select">
+        <option value="">All</option>
+        <option value="棱柱状">圆柱形</option>
+      </select>
+    </div>
+  <div>
+    <label for="material-filter">材质:</label>
+    <select id="material-filter" class="filter-select">
+      <option value="">All</option>
+    </select>
+  </div>
+<div>
+  <label for="ah-filter">标称容量/Ah:</label>
+  <select id="ah-filter" class="filter-select">
+    <option value="">All</option>
+    <option value="2">2</option>
+    <option value="2.2">2.2</option>
+  </select>
+</div>
+<div>
+  <label for="temperature-filter">温度/℃:</label>
+  <select id="temperature-filter" class="filter-select">
+    <option value="">All</option>
+    <option value="4">4</option>
+    <option value="24">24</option>
+    <option value="40">40</option>
+    <option value="43">43</option>
+    <option value="室温">室温</option>
+    <option value="前一部分循环在24℃,后一部分循环在44℃">前一部分循环在24℃,后一部分循环在44℃</option>
+  </select>
+</div>
+<div>
+  <label for="knee-filter">有无拐点:</label>
+  <select id="knee-filter" class="filter-select">
+    <option value="">All</option>
+    <option value="有">有</option>
+    <option value="无">无</option>
+  </select>
+</div>
+<div>
+  <label for="charge-filter">充电方式:</label>
+  <select id="charge-filter" class="filter-select">
+    <option value="">All</option>
+    <option value="0.75c恒流充电至电压4.2V,4.2V恒压充电至20mA">0.75c恒流充电至电压4.2V,4.2V恒压充电至20mA</option>
+    <option value="从4.5A,3,75A,3A,2. 25A,1.5A,0.75A随机挑选一个电流恒流充电至4.2v或时间达到5分钟">从4.5A,3,75A,3A,2. 25A,1.5A,0.75A随机挑选一个电流恒流充电至4.2v或时间达到5分钟</option>
+    <option value="从0.5h,1h,1,5h,2h,2.5h,充满中,随机挑一个时间2A恒流充电,时间截止转恒压充电">从0.5h,1h,1,5h,2h,2.5h,充满中,随机挑一个时间2A恒流充电,时间截止转恒压充电</option>
+    <option value="从0.5h,1h,1,5h,2h,2.5h,充满中,随机挑一个时间3A恒流充电,时间截止转恒压充电">从0.5h,1h,1,5h,2h,2.5h,充满中,随机挑一个时间3A恒流充电,时间截止转恒压充电</option>
+    <option value="2A恒流充电至4.2v,转4.2v恒压充满">2A恒流充电至4.2v,转4.2v恒压充满</option>
+  </select>
+</div>
+<div>
+  <label for="discharge-filter">放电方式:</label>
+  <select id="discharge-filter" class="filter-select">
+    <option value="">All</option>
+    <option value="2A恒流放电至5,6,7,18电压分别降至2.7V,2.5V,2.2V,2.5V">2A恒流放电至5,6,7,18电压分别降至2.7V,2.5V,2.2V,2.5V</option>
+    <option value="4A恒流放电至25,26,27,28电压分别降至2.0V,2.2V,2.5V,2.7V">4A恒流放电至25,26,27,28电压分别降至2.0V,2.2V,2.5V,2.7V</option>
+    <option value="4A恒流放电至29,30,31,32电压分别降至2.0V,2.2V,2.5V,2.7V">4A恒流放电至29,30,31,32电压分别降至2.0V,2.2V,2.5V,2.7V</option>
+    <option value="33,34电池4A恒流放电至电压分别降至2V,2.2V,36电池2A恒流放电至电压2.7V">33,34电池4A恒流放电至电压分别降至2V,2.2V, 
+      36电池2A恒流放电至电压2.7V</option>
+    <option value="在不同循环次数分别使用1,2,4A恒流放电,至38,39,40电压降至2.2v,2.5v,2.7v">在不同循环次数分别使用1,2,4A恒流放电,至38,39,40电压降至2.2v,2.5v,2.7v</option>
+    <option value="使用多个固定负载电流水平(4A和1A),41,42,43,44至电压2V,2.2v,2.5v,2.7v截止">使用多个固定负载电流水平(4A和1A),41,42,43,44至电压2V,2.2v,2.5v,2.7v截止</option>
+    <option value="1A恒流放电至45,46,47,48电压分别降至2.0V,2.2V,2.5V,2.7V">1A恒流放电至45,46,47,48电压分别降至2.0V,2.2V,2.5V,2.7V</option>
+    <option value="2A恒流放电至49,50,51,52电压分别降至2.0V,2.2V,2.5V,2.7V">2A恒流放电至49,50,51,52电压分别降至2.0V,2.2V,2.5V,2.7V</option>
+    <option value="2A恒流放电至53,54,55,56电压分别降至2.0V,2.2V,2.5V,2.7V">2A恒流放电至53,54,55,56电压分别降至2.0V,2.2V,2.5V,2.7V</option>
+      <option value="从4.5A,3,75A,3A,2.25A,1.5A,0.75A随机挑选一个电流放电至电压降至3.2v或时间达到5分钟">从4.5A,3,75A,3A,2.25A
+        ,1.5A,0.75A随机挑选一个电流放电至电压降至3.2v或时间达到5分钟</option>
+      <option value="从0.5-4A随机选一个电流放电,每次5分钟直至3.2V">从0.5-4A随机选一个电流放电,每次5分钟直至3.2V</option>
+      <option value="从0.5-5A随机选一个电流放电,每次1分钟直至3.2V.  0.5A(2%),1A(2.4%),1.5A(3.6%),2.0A(6.0%),2.5A(9.2%),3A(11.8%),3.5A(17.2%),4A(23.4%),4.5A(19.4%),5A(5%)">
+        从0.5-5A随机选一个电流放电,每次1分钟直至3.2V.  0.5A(2%),1A(2.4%),1.5A(3.6%),2.0A(6.0%),2.5A(9.2%),3A(11.8%),3.5A(17.2%),4A(23.4%),4.5A(19.4%),5A(5%)</option>
+      <option value="从0.5-5A随机选一个电流放电,每次1分钟直至3.2V.  0.5A(7.2%),1A(14.8%),1.5A(19.3%),2.0A(21.6%),2.5A(14.6%),3A(10.0%),3.5A(6.5%),4A(4%),4.5A(1.5%),5A(0.5%)">
+        从0.5-5A随机选一个电流放电,每次1分钟直至3.2V.  0.5A(7.2%),1A(14.8%),1.5A(19.3%),2.0A(21.6%),2.5A(14.6%),3A(10.0%),3.5A(6.5%),4A(4%),4.5A(1.5%),5A(0.5%)</option>
+      <option value="从0.5-5A随机选一个电流放电,每次1分钟直至3.2V.  0.5A(7.2%),1A(14.8%),1.5A(19.3%),2.0A(21.6%),2.5A(14.6%),3A(10.0%),3.5A(6.5%),4A(4%),4.5A(1.5%),5A(0.6%)">
+        从0.5-5A随机选一个电流放电,每次1分钟直至3.2V.  0.5A(7.2%),1A(14.8%),1.5A(19.3%),2.0A(21.6%),2.5A(14.6%),3A(10.0%),3.5A(6.5%),4A(4%),4.5A(1.5%),5A(0.6%)</option>
+  </select>
+</div>
+<div>
+  <label for="cutoff-filter">截至条件:</label>
+  <select id="cutoff-filter" class="filter-select">
+    <option value="">All</option>
+    <option value="70%SOH">70%SOH</option>
+    <option value="50-80%SOH">50-80%SOH</option>
+    <option value="70-80%SOH">70-80%SOH</option>
+    <option value="80%SOH">80%SOH</option>
+  </select>
+</div>
+<div>
+  <label for="test-filter">测试量:</label>
+  <select id="test-filter" class="filter-select">
+    <option value="">All</option>
+    <option value="Q, IR, V, I, T ">Q, IR, V, I, T </option>
+  </select>
+</div>
+<div>
+  <label for="year-filter">发布年份:</label>
+  <select id="year-filter" class="filter-select">
+    <option value="">All</option>
+    <option value="2008">2008</option>
+  </select>
+</div>
+<button id="filter-button" class="filter-button">Filter</button>
+</div>
+<hr style="border: 3px solid black;">
+    <div class="table-container">
+      <table id="table">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>电池编号</th>
+            <th>型号</th>
+            <th>形状</th>
+            <th>材质</th>
+            <th>标称容量/Ah</th>
+            <th>温度/℃</th>
+            <th>有无拐点</th>
+            <th>充电方式</th>
+            <th>放电方式</th>
+            <th>截止条件</th>
+            <th>测试量</th>
+            <th>发布年份</th>
+            <th>许可</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>NASAdata1(34)</td>     
+            <td class="display-as-link"><a href="./chart/曲线.html">2</a></td>
+            <td>18650</td>
+            <td>圆柱形</td>
+            <td></td>
+            <td>2</td>
+            <td>24</td>
+            <td>无</td>
+            <td>0.75c恒流充电至电压4.2V,4.2V恒压充电至20mA</td>
+            <td>4A恒流放电至25,26,27,28电压分别降至2.0V,2.2V,2.5V,2.7V</td>
+            <td>70-80%SOH</td>
+            <td>Q, IR, V, I, T </td>
+            <td>2008</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>NASAdata1(34)</td>      
+            <td class="display-as-link"><a href="mll22.html">5</a></td>
+            <td>18650</td>
+            <td>圆柱形</td>
+            <td></td>
+            <td>2</td>
+            <td>24</td>
+            <td>无</td>
+            <td>0.75c恒流充电至电压4.2V,4.2V恒压充电至20mA</td>
+            <td>2A恒流放电至5,6,7,18电压分别降至2.7V,2.5V,2.2V,2.5V</td>
+            <td>70%SOH</td>
+            <td>Q, IR, V, I, T </td>
+            <td>2008</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>NASAdata1(34)</td>   
+            <td class="display-as-link"><a href="mll33.html">6</a></td>
+            <td>18650</td>
+            <td>圆柱形</td>
+            <td></td>
+            <td>2</td>
+            <td>24</td>
+            <td>无</td>
+            <td>0.75c恒流充电至电压4.2V,4.2V恒压充电至20mA</td>
+            <td>2A恒流放电至5,6,7,18电压分别降至2.7V,2.5V,2.2V,2.5V</td>
+            <td>70%SOH</td>
+            <td>Q, IR, V, I, T </td>
+            <td>2008</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>NASAdata1(34)</td>     
+            <td class="display-as-link"><a href="马里兰容量曲线.html">7</a></td>
+            <td>18650</td>
+            <td>圆柱形</td>
+            <td></td>
+            <td>2</td>
+            <td>24</td>
+            <td>无</td>
+            <td>0.75c恒流充电至电压4.2V,4.2V恒压充电至20mA</td>
+            <td>2A恒流放电至5,6,7,18电压分别降至2.7V,2.5V,2.2V,2.5V</td>
+            <td>70%SOH</td>
+            <td>Q, IR, V, I, T </td>
+            <td>2008</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>NASAdata1(34)</td>       
+            <td class="display-as-link"><a href="马里兰容量曲线.html">8</a></td>
+            <td>18650</td>
+            <td>圆柱形</td>
+            <td></td>
+            <td>2</td>
+            <td>24</td>
+            <td>无</td>
+            <td>0.75c恒流充电至电压4.2V,4.2V恒压充电至20mA</td>
+            <td>2A恒流放电至5,6,7,18电压分别降至2.7V,2.5V,2.2V,2.5V</td>
+            <td>70%SOH</td>
+            <td>Q, IR, V, I, T </td>
+            <td>2008</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>NASAdata1(34)</td>       
+            <td class="display-as-link"><a href="马里兰容量曲线.html">26</a></td>
+            <td>18650</td>
+            <td>圆柱形</td>
+            <td></td>
+            <td>2</td>
+            <td>24</td>
+            <td>无</td>
+            <td>0.75c恒流充电至电压4.2V,4.2V恒压充电至20mA</td>
+            <td>4A恒流放电至25,26,27,28电压分别降至2.0V,2.2V,2.5V,2.7V</td>
+            <td>70-80%SOH</td>
+            <td>Q, IR, V, I, T </td>
+            <td>2008</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>NASAdata1(34)</td>      
+            <td class="display-as-link"><a href="马里兰容量曲线.html">27</a></td>
+            <td>18650</td>
+            <td>圆柱形</td>
+            <td></td>
+            <td>2</td>
+            <td>24</td>
+            <td>无</td>
+            <td>0.75c恒流充电至电压4.2V,4.2V恒压充电至20mA</td>
+            <td>4A恒流放电至25,26,27,28电压分别降至2.0V,2.2V,2.5V,2.7V</td>
+            <td>70-80%SOH</td>
+            <td>Q, IR, V, I, T </td>
+            <td>2008</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>NASAdata1(34)</td>      
+            <td class="display-as-link"><a href="马里兰容量曲线.html">28</a></td>
+            <td>18650</td>
+            <td>圆柱形</td>
+            <td></td>
+            <td>2</td>
+            <td>24</td>
+            <td>无</td>
+            <td>0.75c恒流充电至电压4.2V,4.2V恒压充电至20mA</td>
+            <td>4A恒流放电至25,26,27,28电压分别降至2.0V,2.2V,2.5V,2.7V</td>
+            <td>70-80%SOH</td>
+            <td>Q, IR, V, I, T </td>
+            <td>2008</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>NASAdata1(34)</td>    
+            <td class="display-as-link"><a href="马里兰容量曲线.html">29</a></td>
+            <td>18650</td>
+            <td>圆柱形</td>
+            <td></td>
+            <td>2</td>
+            <td>43</td>
+            <td>无</td>
+            <td>0.75c恒流充电至电压4.2V,4.2V恒压充电至20mA</td>
+            <td>4A恒流放电至29,30,31,32电压分别降至2.0V,2.2V,2.5V,2.7V</td>
+            <td>70-80%SOH</td>
+            <td>Q, IR, V, I, T </td>
+            <td>2008</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>NASAdata1(34)</td>       
+            <td class="display-as-link"><a href="马里兰容量曲线.html">30</a></td>
+            <td>18650</td>
+            <td>圆柱形</td>
+            <td></td>
+            <td>2</td>
+            <td>43</td>
+            <td>无</td>
+            <td>0.75c恒流充电至电压4.2V,4.2V恒压充电至20mA</td>
+            <td>4A恒流放电至29,30,31,32电压分别降至2.0V,2.2V,2.5V,2.7V</td>
+            <td>70-80%SOH</td>
+            <td>Q, IR, V, I, T </td>
+            <td>2008</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>NASAdata1(34)</td>      
+            <td class="display-as-link"><a href="马里兰容量曲线.html">31</a></td>
+            <td>18650</td>
+            <td>圆柱形</td>
+            <td></td>
+            <td>2</td>
+            <td>43</td>
+            <td>无</td>
+            <td>0.75c恒流充电至电压4.2V,4.2V恒压充电至20mA</td>
+            <td>4A恒流放电至29,30,31,32电压分别降至2.0V,2.2V,2.5V,2.7V</td>
+            <td>70-80%SOH</td>
+            <td>Q, IR, V, I, T </td>
+            <td>2008</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>NASAdata1(34)</td>       
+            <td class="display-as-link"><a href="马里兰容量曲线.html">32</a></td>
+            <td>18650</td>
+            <td>圆柱形</td>
+            <td></td>
+            <td>2</td>
+            <td>43</td>
+            <td>无</td>
+            <td>0.75c恒流充电至电压4.2V,4.2V恒压充电至20mA</td>
+            <td>4A恒流放电至29,30,31,32电压分别降至2.0V,2.2V,2.5V,2.7V</td>
+            <td>70-80%SOH</td>
+            <td>Q, IR, V, I, T </td>
+            <td>2008</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>NASAdata1(34)</td>   
+            <td class="display-as-link"><a href="马里兰容量曲线.html">33</a></td>
+            <td>18650</td>
+            <td>圆柱形</td>
+            <td></td>
+            <td>2</td>
+            <td>24</td>
+            <td>无</td>
+            <td>0.75c恒流充电至电压4.2V,4.2V恒压充电至20mA</td>
+            <td>33,34电池4A恒流放电至电压分别降至2V,2.2V,36电池2A恒流放电至电压2.7V</td>
+            <td>80%SOH</td>
+            <td>Q, IR, V, I, T </td>
+            <td>2008</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>NASAdata1(34)</td>      
+            <td class="display-as-link"><a href="马里兰容量曲线.html">34</a></td>
+            <td>18650</td>
+            <td>圆柱形</td>
+            <td></td>
+            <td>2</td>
+            <td>24</td>
+            <td>无</td>
+            <td>0.75c恒流充电至电压4.2V,4.2V恒压充电至20mA</td>
+            <td>33,34电池4A恒流放电至电压分别降至2V,2.2V,36电池2A恒流放电至电压2.7V</td>
+            <td>80%SOH</td>
+            <td>Q, IR, V, I, T </td>
+            <td>2008</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>NASAdata1(34)</td>      
+            <td class="display-as-link"><a href="马里兰容量曲线.html">36</a></td>
+            <td>18650</td>
+            <td>圆柱形</td>
+            <td></td>
+            <td>2</td>
+            <td>24</td>
+            <td>无</td>
+            <td>0.75c恒流充电至电压4.2V,4.2V恒压充电至20mA</td>
+            <td>33,34电池4A恒流放电至电压分别降至2V,2.2V,36电池2A恒流放电至电压2.7V</td>
+            <td>80%SOH</td>
+            <td>Q, IR, V, I, T </td>
+            <td>2008</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>NASAdata1(34)</td>  
+            <td class="display-as-link"><a href="马里兰容量曲线.html">38</a></td>
+            <td>18650</td>
+            <td>圆柱形</td>
+            <td></td>
+            <td>2</td>
+            <td>前一部分循环在24℃,后一部分循环在44℃</td>
+            <td>无</td>
+            <td>0.75c恒流充电至电压4.2V,4.2V恒压充电至20mA</td>
+            <td>在不同循环次数分别使用1,2,4A恒流放电,至38,39,40电压降至2.2v,2.5v,2.7v</td>
+            <td>80%SOH</td>
+            <td>Q, IR, V, I, T </td>
+            <td>2008</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>NASAdata1(34)</td>      
+            <td class="display-as-link"><a href="马里兰容量曲线.html">39</a></td>
+            <td>18650</td>
+            <td>圆柱形</td>
+            <td></td>
+            <td>2</td>
+            <td>前一部分循环在24℃,后一部分循环在44℃</td>
+            <td>无</td>
+            <td>0.75c恒流充电至电压4.2V,4.2V恒压充电至20mA</td>
+            <td>在不同循环次数分别使用1,2,4A恒流放电,至38,39,40电压降至2.2v,2.5v,2.7v</td>
+            <td>80%SOH</td>
+            <td>Q, IR, V, I, T </td>
+            <td>2008</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>NASAdata1(34)</td>    
+            <td class="display-as-link"><a href="马里兰容量曲线.html">40</a></td>
+            <td>18650</td>
+            <td>圆柱形</td>
+            <td></td>
+            <td>2</td>
+            <td>前一部分循环在24℃,后一部分循环在44℃</td>
+            <td>无</td>
+            <td>0.75c恒流充电至电压4.2V,4.2V恒压充电至20mA</td>
+            <td>在不同循环次数分别使用1,2,4A恒流放电,至38,39,40电压降至2.2v,2.5v,2.7v</td>
+            <td>80%SOH</td>
+            <td>Q, IR, V, I, T </td>
+            <td>2008</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>NASAdata1(34)</td>     
+            <td class="display-as-link"><a href="马里兰容量曲线.html">41</a></td>
+            <td>18650</td>
+            <td>圆柱形</td>
+            <td></td>
+            <td>2</td>
+            <td>4</td>
+            <td>无</td>
+            <td>0.75c恒流充电至电压4.2V,4.2V恒压充电至20mA</td>
+            <td>使用多个固定负载电流水平(4A和1A),41,42,43,44至电压2V,2.2v,2.5v,2.7v截止</td>
+            <td>80%SOH</td>
+            <td>Q, IR, V, I, T </td>
+            <td>2008</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>NASAdata1(34)</td>     
+            <td class="display-as-link"><a href="马里兰容量曲线.html">42</a></td>
+            <td>18650</td>
+            <td>圆柱形</td>
+            <td></td>
+            <td>2</td>
+            <td>4</td>
+            <td>无</td>
+            <td>0.75c恒流充电至电压4.2V,4.2V恒压充电至20mA</td>
+            <td>使用多个固定负载电流水平(4A和1A),41,42,43,44至电压2V,2.2v,2.5v,2.7v截止</td>
+            <td>80%SOH</td>
+            <td>Q, IR, V, I, T </td>
+            <td>2008</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>NASAdata1(34)</td>      
+            <td class="display-as-link"><a href="马里兰容量曲线.html">43</a></td>
+            <td>18650</td>
+            <td>圆柱形</td>
+            <td></td>
+            <td>2</td>
+            <td>4</td>
+            <td>无</td>
+            <td>0.75c恒流充电至电压4.2V,4.2V恒压充电至20mA</td>
+            <td>使用多个固定负载电流水平(4A和1A),41,42,43,44至电压2V,2.2v,2.5v,2.7v截止</td>
+            <td>80%SOH</td>
+            <td>Q, IR, V, I, T </td>
+            <td>2008</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>NASAdata1(34)</td>    
+            <td class="display-as-link"><a href="马里兰容量曲线.html">44</a></td>
+            <td>18650</td>
+            <td>圆柱形</td>
+            <td></td>
+            <td>2</td>
+            <td>4</td>
+            <td>无</td>
+            <td>0.75c恒流充电至电压4.2V,4.2V恒压充电至20mA</td>
+            <td>使用多个固定负载电流水平(4A和1A),41,42,43,44至电压2V,2.2v,2.5v,2.7v截止</td>
+            <td>80%SOH</td>
+            <td>Q, IR, V, I, T </td>
+            <td>2008</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>NASAdata1(34)</td>     
+            <td class="display-as-link"><a href="马里兰容量曲线.html">45</a></td>
+            <td>18650</td>
+            <td>圆柱形</td>
+            <td></td>
+            <td>2</td>
+            <td>4</td>
+            <td>无</td>
+            <td>0.75c恒流充电至电压4.2V,4.2V恒压充电至20mA</td>
+            <td>1A恒流放电至45,46,47,48电压分别降至2.0V,2.2V,2.5V,2.7V</td>
+            <td>80%SOH</td>
+            <td>Q, IR, V, I, T </td>
+            <td>2008</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>NASAdata1(34)</td>    
+            <td class="display-as-link"><a href="马里兰容量曲线.html">46</a></td>
+            <td>18650</td>
+            <td>圆柱形</td>
+            <td></td>
+            <td>2</td>
+            <td>4</td>
+            <td>无</td>
+            <td>0.75c恒流充电至电压4.2V,4.2V恒压充电至20mA</td>
+            <td>1A恒流放电至45,46,47,48电压分别降至2.0V,2.2V,2.5V,2.7V</td>
+            <td>80%SOH</td>
+            <td>Q, IR, V, I, T </td>
+            <td>2008</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>NASAdata1(34)</td>    
+            <td class="display-as-link"><a href="马里兰容量曲线.html">47</a></td>
+            <td>18650</td>
+            <td>圆柱形</td>
+            <td></td>
+            <td>2</td>
+            <td>4</td>
+            <td>无</td>
+            <td>0.75c恒流充电至电压4.2V,4.2V恒压充电至20mA</td>
+            <td>1A恒流放电至45,46,47,48电压分别降至2.0V,2.2V,2.5V,2.7V</td>
+            <td>80%SOH</td>
+            <td>Q, IR, V, I, T </td>
+            <td>2008</td>
+            <td></td>
+          </tr>
+
+          <tr>
+            <td>NASAdata1(34)</td>      
+            <td class="display-as-link"><a href="马里兰容量曲线.html">48</a></td>
+            <td>18650</td>
+            <td>圆柱形</td>
+            <td></td>
+            <td>2</td>
+            <td>4</td>
+            <td>无</td>
+            <td>0.75c恒流充电至电压4.2V,4.2V恒压充电至20mA</td>
+            <td>1A恒流放电至45,46,47,48电压分别降至2.0V,2.2V,2.5V,2.7V</td>
+            <td>80%SOH</td>
+            <td>Q, IR, V, I, T </td>
+            <td>2008</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>NASAdata1(34)</td>      
+            <td class="display-as-link"><a href="马里兰容量曲线.html">49</a></td>
+            <td>18650</td>
+            <td>圆柱形</td>
+            <td></td>
+            <td>2</td>
+            <td>4</td>
+            <td>无</td>
+            <td>0.75c恒流充电至电压4.2V,4.2V恒压充电至20mA</td>
+            <td>2A恒流放电至49,50,51,52电压分别降至2.0V,2.2V,2.5V,2.7V</td>
+            <td>80%SOH</td>
+            <td>Q, IR, V, I, T </td>
+            <td>2008</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>NASAdata1(34)</td>      
+            <td class="display-as-link"><a href="马里兰容量曲线.html">50</a></td>
+            <td>18650</td>
+            <td>圆柱形</td>
+            <td></td>
+            <td>2</td>
+            <td>4</td>
+            <td>无</td>
+            <td>0.75c恒流充电至电压4.2V,4.2V恒压充电至20mA</td>
+            <td>2A恒流放电至49,50,51,52电压分别降至2.0V,2.2V,2.5V,2.7V</td>
+            <td>80%SOH</td>
+            <td>Q, IR, V, I, T </td>
+            <td>2008</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>NASAdata1(34)</td>      
+            <td class="display-as-link"><a href="马里兰容量曲线.html">51</a></td>
+            <td>18650</td>
+            <td>圆柱形</td>
+            <td></td>
+            <td>2</td>
+            <td>4</td>
+            <td>无</td>
+            <td>0.75c恒流充电至电压4.2V,4.2V恒压充电至20mA</td>
+            <td>2A恒流放电至49,50,51,52电压分别降至2.0V,2.2V,2.5V,2.7V</td>
+            <td>80%SOH</td>
+            <td>Q, IR, V, I, T </td>
+            <td>2008</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>NASAdata1(34)</td>      
+            <td class="display-as-link"><a href="马里兰容量曲线.html">52</a></td>
+            <td>18650</td>
+            <td>圆柱形</td>
+            <td></td>
+            <td>2</td>
+            <td>4</td>
+            <td>无</td>
+            <td>0.75c恒流充电至电压4.2V,4.2V恒压充电至20mA</td>
+            <td>2A恒流放电至49,50,51,52电压分别降至2.0V,2.2V,2.5V,2.7V</td>
+            <td>80%SOH</td>
+            <td>Q, IR, V, I, T </td>
+            <td>2008</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>NASAdata1(34)</td>      
+            <td class="display-as-link"><a href="马里兰容量曲线.html">53</a></td>
+            <td>18650</td>
+            <td>圆柱形</td>
+            <td></td>
+            <td>2</td>
+            <td>4</td>
+            <td>无</td>
+            <td>0.75c恒流充电至电压4.2V,4.2V恒压充电至20mA</td>
+            <td>2A恒流放电至53,54,55,56电压分别降至2.0V,2.2V,2.5V,2.7V</td>
+            <td>80%SOH</td>
+            <td>Q, IR, V, I, T </td>
+            <td>2008</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>NASAdata1(34)</td>      
+            <td class="display-as-link"><a href="马里兰容量曲线.html">54</a></td>
+            <td>18650</td>
+            <td>圆柱形</td>
+            <td></td>
+            <td>2</td>
+            <td>4</td>
+            <td>无</td>
+            <td>0.75c恒流充电至电压4.2V,4.2V恒压充电至20mA</td>
+            <td>2A恒流放电至53,54,55,56电压分别降至2.0V,2.2V,2.5V,2.7V</td>
+            <td>80%SOH</td>
+            <td>Q, IR, V, I, T </td>
+            <td>2008</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>NASAdata1(34)</td>      
+            <td class="display-as-link"><a href="马里兰容量曲线.html">55</a></td>
+            <td>18650</td>
+            <td>圆柱形</td>
+            <td></td>
+            <td>2</td>
+            <td>4</td>
+            <td>无</td>
+            <td>0.75c恒流充电至电压4.2V,4.2V恒压充电至20mA</td>
+            <td>2A恒流放电至53,54,55,56电压分别降至2.0V,2.2V,2.5V,2.7V</td>
+            <td>80%SOH</td>
+            <td>Q, IR, V, I, T </td>
+            <td>2008</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>NASAdata1(34)</td>      
+            <td class="display-as-link"><a href="马里兰容量曲线.html">56</a></td>
+            <td>18650</td>
+            <td>圆柱形</td>
+            <td></td>
+            <td>2</td>
+            <td>4</td>
+            <td>无</td>
+            <td>0.75c恒流充电至电压4.2V,4.2V恒压充电至20mA</td>
+            <td>2A恒流放电至53,54,55,56电压分别降至2.0V,2.2V,2.5V,2.7V</td>
+            <td>80%SOH</td>
+            <td>Q, IR, V, I, T </td>
+            <td>2008</td>
+            <td></td>
+          </tr>
+          
+          <tr>
+            <td>NASAdata2(28)</td>      
+            <td class="display-as-link"><a href="马里兰容量曲线.html">RW1</a></td>
+            <td>18650</td>
+            <td>圆柱形</td>
+            <td></td>
+            <td>2.2</td>
+            <td>室温</td>
+            <td>无</td>
+            <td>从0.5h,1h,1,5h,2h,2.5h,充满中,随机挑一个时间3A恒流充电,时间截止转恒压充电</td>
+            <td>从0.5-4A随机选一个电流放电,每次5分钟直至3.2V</td>
+            <td>50-80%SOH</td>
+            <td>Q, IR, V, I, T </td>
+            <td>2008</td>
+          </tr>
+          <tr>
+            <td>NASAdata2(28)</td>      
+            <td class="display-as-link"><a href="马里兰容量曲线.html">RW2</a></td>
+            <td>18650</td>
+            <td>圆柱形</td>
+            <td></td>
+            <td>2.2</td>
+            <td>室温</td>
+            <td>无</td>
+            <td>从0.5h,1h,1,5h,2h,2.5h,充满中,随机挑一个时间3A恒流充电,时间截止转恒压充电</td>
+            <td>从0.5-4A随机选一个电流放电,每次5分钟直至3.2V</td>
+            <td>50-80%SOH</td>
+            <td>Q, IR, V, I, T </td>
+            <td>2008</td>
+          </tr>
+          <tr>
+            <td>NASAdata2(28)</td>      
+            <td class="display-as-link"><a href="马里兰容量曲线.html">RW3</a></td>
+            <td>18650</td>
+            <td>圆柱形</td>
+            <td></td>
+            <td>2.2</td>
+            <td>室温</td>
+            <td>无</td>
+            <td>从0.5h,1h,1,5h,2h,2.5h,充满中,随机挑一个时间2A恒流充电,时间截止转恒压充电</td>
+            <td>从0.5-4A随机选一个电流放电,每次5分钟直至3.2V</td>
+            <td>50-80%SOH</td>
+            <td>Q, IR, V, I, T </td>
+            <td>2008</td>
+          </tr>
+          <tr>
+            <td>NASAdata2(28)</td>      
+            <td class="display-as-link"><a href="马里兰容量曲线.html">RW4</a></td>
+            <td>18650</td>
+            <td>圆柱形</td>
+            <td></td>
+            <td>2.2</td>
+            <td>室温</td>
+            <td>无</td>
+            <td>从0.5h,1h,1,5h,2h,2.5h,充满中,随机挑一个时间2A恒流充电,时间截止转恒压充电</td>
+            <td>从0.5-4A随机选一个电流放电,每次5分钟直至3.2V</td>
+            <td>50-80%SOH</td>
+            <td>Q, IR, V, I, T </td>
+            <td>2008</td>
+          </tr>
+          <tr>
+            <td>NASAdata2(28)</td>      
+            <td class="display-as-link"><a href="马里兰容量曲线.html">RW5</a></td>
+            <td>18650</td>
+            <td>圆柱形</td>
+            <td></td>
+            <td>2.2</td>
+            <td>室温</td>
+            <td>无</td>
+            <td>从0.5h,1h,1,5h,2h,2.5h,充满中,随机挑一个时间2A恒流充电,时间截止转恒压充电</td>
+            <td>从0.5-4A随机选一个电流放电,每次5分钟直至3.2V</td>
+            <td>50-80%SOH</td>
+            <td>Q, IR, V, I, T </td>
+            <td>2008</td>
+          </tr>
+          <tr>
+            <td>NASAdata2(28)</td>      
+            <td class="display-as-link"><a href="马里兰容量曲线.html">RW6</a></td>
+            <td>18650</td>
+            <td>圆柱形</td>
+            <td></td>
+            <td>2.2</td>
+            <td>室温</td>
+            <td>无</td>
+            <td>从0.5h,1h,1,5h,2h,2.5h,充满中,随机挑一个时间2A恒流充电,时间截止转恒压充电</td>
+            <td>从0.5-4A随机选一个电流放电,每次5分钟直至3.2V</td>
+            <td>50-80%SOH</td>
+            <td>Q, IR, V, I, T </td>
+            <td>2008</td>
+          </tr>
+          <tr>
+            <td>NASAdata2(28)</td>      
+            <td class="display-as-link"><a href="马里兰容量曲线.html">RW7</a></td>
+            <td>18650</td>
+            <td>圆柱形</td>
+            <td></td>
+            <td>2.2</td>
+            <td>室温</td>
+            <td>无</td>
+            <td>从0.5h,1h,1,5h,2h,2.5h,充满中,随机挑一个时间3A恒流充电,时间截止转恒压充电</td>
+            <td>从0.5-4A随机选一个电流放电,每次5分钟直至3.2V</td>
+            <td>50-80%SOH</td>
+            <td>Q, IR, V, I, T </td>
+            <td>2008</td>
+          </tr>
+          <tr>
+            <td>NASAdata2(28)</td>      
+            <td class="display-as-link"><a href="马里兰容量曲线.html">RW8</a></td>
+            <td>18650</td>
+            <td>圆柱形</td>
+            <td></td>
+            <td>2.2</td>
+            <td>室温</td>
+            <td>无</td>
+            <td>从0.5h,1h,1,5h,2h,2.5h,充满中,随机挑一个时间3A恒流充电,时间截止转恒压充电</td>
+            <td>从0.5-4A随机选一个电流放电,每次5分钟直至3.2V</td>
+            <td>50-80%SOH</td>
+            <td>Q, IR, V, I, T </td>
+            <td>2008</td>
+          </tr>
+          <tr>
+            <td>NASAdata2(28)</td>      
+            <td class="display-as-link"><a href="马里兰容量曲线.html">RW9</a></td>
+            <td>18650</td>
+            <td>圆柱形</td>
+            <td></td>
+            <td>2.2</td>
+            <td>室温</td>
+            <td>无</td>
+            <td>从4.5A,3,75A,3A,2. 25A,1.5A,0.75A随机挑选一个电流恒流充电至4.2v或时间达到5分钟</td>
+            <td>从4.5A,3,75A,3A,2.25A,1.5A,0.75A随机挑选一个电流放电至电压降至3.2v或时间达到5分钟</td>
+            <td>50-80%SOH</td>
+            <td>Q, IR, V, I, T </td>
+            <td>2008</td>
+          </tr>
+          <tr>
+            <td>NASAdata2(28)</td>      
+            <td class="display-as-link"><a href="马里兰容量曲线.html">RW10</a></td>
+            <td>18650</td>
+            <td>圆柱形</td>
+            <td></td>
+            <td>2.2</td>
+            <td>室温</td>
+            <td>无</td>
+            <td>从4.5A,3,75A,3A,2. 25A,1.5A,0.75A随机挑选一个电流恒流充电至4.2v或时间达到5分钟</td>
+            <td>从4.5A,3,75A,3A,2.25A,1.5A,0.75A随机挑选一个电流放电至电压降至3.2v或时间达到5分钟</td>
+            <td>50-80%SOH</td>
+            <td>Q, IR, V, I, T </td>
+            <td>2008</td>
+          </tr>
+          <tr>
+            <td>NASAdata2(28)</td>      
+            <td class="display-as-link"><a href="马里兰容量曲线.html">RW11</a></td>
+            <td>18650</td>
+            <td>圆柱形</td>
+            <td></td>
+            <td>2.2</td>
+            <td>室温</td>
+            <td>无</td>
+            <td>从4.5A,3,75A,3A,2. 25A,1.5A,0.75A随机挑选一个电流恒流充电至4.2v或时间达到5分钟</td>
+            <td>从4.5A,3,75A,3A,2.25A,1.5A,0.75A随机挑选一个电流放电至电压降至3.2v或时间达到5分钟</td>
+            <td>50-80%SOH</td>
+            <td>Q, IR, V, I, T </td>
+            <td>2008</td>
+          </tr>
+          <tr>
+            <td>NASAdata2(28)</td>      
+            <td class="display-as-link"><a href="马里兰容量曲线.html">RW12</a></td>
+            <td>18650</td>
+            <td>圆柱形</td>
+            <td></td>
+            <td>2.2</td>
+            <td>室温</td>
+            <td>无</td>
+            <td>从4.5A,3,75A,3A,2. 25A,1.5A,0.75A随机挑选一个电流恒流充电至4.2v或时间达到5分钟</td>
+            <td>从4.5A,3,75A,3A,2.25A,1.5A,0.75A随机挑选一个电流放电至电压降至3.2v或时间达到5分钟</td>
+            <td>50-80%SOH</td>
+            <td>Q, IR, V, I, T </td>
+            <td>2008</td>
+          </tr>
+          <tr>
+            <td>NASAdata2(28)</td>      
+            <td class="display-as-link"><a href="马里兰容量曲线.html">RW13</a></td>
+            <td>18650</td>
+            <td>圆柱形</td>
+            <td></td>
+            <td>2.2</td>
+            <td>室温</td>
+            <td>无</td>
+            <td>2A恒流充电至4.2v,转4.2v恒压充满</td>
+            <td>从0.5-5A随机选一个电流放电,每次1分钟直至3.2V.  0.5A(7.2%),1A(14.8%),1.5A(19.3%),2.0A(21.6%),2.5A(14.6%),3A(10.0%),3.5A(6.5%),4A(4%),4.5A(1.5%),5A(0.6%)</td>
+            <td>50-80%SOH</td>
+            <td>Q, IR, V, I, T </td>
+            <td>2008</td>
+          </tr>
+          <tr>
+            <td>NASAdata2(28)</td>      
+            <td class="display-as-link"><a href="马里兰容量曲线.html">RW14</a></td>
+            <td>18650</td>
+            <td>圆柱形</td>
+            <td></td>
+            <td>2.2</td>
+            <td>室温</td>
+            <td>无</td>
+            <td>2A恒流充电至4.2v,转4.2v恒压充满</td>
+            <td>从0.5-5A随机选一个电流放电,每次1分钟直至3.2V.  0.5A(7.2%),1A(14.8%),1.5A(19.3%),2.0A(21.6%),2.5A(14.6%),3A(10.0%),3.5A(6.5%),4A(4%),4.5A(1.5%),5A(0.6%)</td>
+            <td>50-80%SOH</td>
+            <td>Q, IR, V, I, T </td>
+            <td>2008</td>
+          </tr>
+          <tr>
+            <td>NASAdata2(28)</td>      
+            <td class="display-as-link"><a href="马里兰容量曲线.html">RW15</a></td>
+            <td>18650</td>
+            <td>圆柱形</td>
+            <td></td>
+            <td>2.2</td>
+            <td>室温</td>
+            <td>无</td>
+            <td>2A恒流充电至4.2v,转4.2v恒压充满</td>
+            <td>从0.5-5A随机选一个电流放电,每次1分钟直至3.2V.  0.5A(7.2%),1A(14.8%),1.5A(19.3%),2.0A(21.6%),2.5A(14.6%),3A(10.0%),3.5A(6.5%),4A(4%),4.5A(1.5%),5A(0.6%)</td>
+            <td>50-80%SOH</td>
+            <td>Q, IR, V, I, T </td>
+            <td>2008</td>
+          </tr>
+          <tr>
+            <td>NASAdata2(28)</td>      
+            <td class="display-as-link"><a href="马里兰容量曲线.html">RW16</a></td>
+            <td>18650</td>
+            <td>圆柱形</td>
+            <td></td>
+            <td>2.2</td>
+            <td>室温</td>
+            <td>无</td>
+            <td>2A恒流充电至4.2v,转4.2v恒压充满</td>
+            <td>从0.5-5A随机选一个电流放电,每次1分钟直至3.2V.  0.5A(7.2%),1A(14.8%),1.5A(19.3%),2.0A(21.6%),2.5A(14.6%),3A(10.0%),3.5A(6.5%),4A(4%),4.5A(1.5%),5A(0.6%)</td>
+            <td>50-80%SOH</td>
+            <td>Q, IR, V, I, T </td>
+            <td>2008</td>
+          </tr>
+          <tr>
+            <td>NASAdata2(28)</td>      
+            <td class="display-as-link"><a href="马里兰容量曲线.html">RW17</a></td>
+            <td>18650</td>
+            <td>圆柱形</td>
+            <td></td>
+            <td>2.2</td>
+            <td>室温</td>
+            <td>无</td>
+            <td>2A恒流充电至4.2v,转4.2v恒压充满</td>
+            <td>从0.5-5A随机选一个电流放电,每次1分钟直至3.2V.  0.5A(2%),1A(2.4%),1.5A(3.6%),2.0A(6.0%),2.5A(9.2%),3A(11.8%),3.5A(17.2%),4A(23.4%),4.5A(19.4%),5A(5%)</td>
+            <td>50-80%SOH</td>
+            <td>Q, IR, V, I, T </td>
+            <td>2008</td>
+          </tr>
+          <tr>
+            <td>NASAdata2(28)</td>      
+            <td class="display-as-link"><a href="马里兰容量曲线.html">RW18</a></td>
+            <td>18650</td>
+            <td>圆柱形</td>
+            <td></td>
+            <td>2.2</td>
+            <td>室温</td>
+            <td>无</td>
+            <td>2A恒流充电至4.2v,转4.2v恒压充满</td>
+            <td>从0.5-5A随机选一个电流放电,每次1分钟直至3.2V.  0.5A(2%),1A(2.4%),1.5A(3.6%),2.0A(6.0%),2.5A(9.2%),3A(11.8%),3.5A(17.2%),4A(23.4%),4.5A(19.4%),5A(5%)</td>
+            <td>50-80%SOH</td>
+            <td>Q, IR, V, I, T </td>
+            <td>2008</td>
+          </tr>
+          <tr>
+            <td>NASAdata2(28)</td>      
+            <td class="display-as-link"><a href="马里兰容量曲线.html">RW19</a></td>
+            <td>18650</td>
+            <td>圆柱形</td>
+            <td></td>
+            <td>2.2</td>
+            <td>室温</td>
+            <td>无</td>
+            <td>2A恒流充电至4.2v,转4.2v恒压充满</td>
+            <td>从0.5-5A随机选一个电流放电,每次1分钟直至3.2V.  0.5A(2%),1A(2.4%),1.5A(3.6%),2.0A(6.0%),2.5A(9.2%),3A(11.8%),3.5A(17.2%),4A(23.4%),4.5A(19.4%),5A(5%)</td>
+            <td>50-80%SOH</td>
+            <td>Q, IR, V, I, T </td>
+            <td>2008</td>
+          </tr>
+          <tr>
+            <td>NASAdata2(28)</td>      
+            <td class="display-as-link"><a href="马里兰容量曲线.html">RW20</a></td>
+            <td>18650</td>
+            <td>圆柱形</td>
+            <td></td>
+            <td>2.2</td>
+            <td>室温</td>
+            <td>无</td>
+            <td>2A恒流充电至4.2v,转4.2v恒压充满</td>
+            <td>从0.5-5A随机选一个电流放电,每次1分钟直至3.2V.  0.5A(2%),1A(2.4%),1.5A(3.6%),2.0A(6.0%),2.5A(9.2%),3A(11.8%),3.5A(17.2%),4A(23.4%),4.5A(19.4%),5A(5%)</td>
+            <td>50-80%SOH</td>
+            <td>Q, IR, V, I, T </td>
+            <td>2008</td>
+          </tr>
+          <tr>
+            <td>NASAdata2(28)</td>      
+            <td class="display-as-link"><a href="马里兰容量曲线.html">RW21</a></td>
+            <td>18650</td>
+            <td>圆柱形</td>
+            <td></td>
+            <td>2.2</td>
+            <td>40</td>
+            <td>无</td>
+            <td>2A恒流充电至4.2v,转4.2v恒压充满</td>
+            <td>从0.5-5A随机选一个电流放电,每次1分钟直至3.2V.  0.5A(7.2%),1A(14.8%),1.5A(19.3%),2.0A(21.6%),2.5A(14.6%),3A(10.0%),3.5A(6.5%),4A(4%),4.5A(1.5%),5A(0.5%)</td>
+            <td>50-80%SOH</td>
+            <td>Q, IR, V, I, T </td>
+            <td>2008</td>
+          </tr>
+          <tr>
+            <td>NASAdata2(28)</td>      
+            <td class="display-as-link"><a href="马里兰容量曲线.html">RW22</a></td>
+            <td>18650</td>
+            <td>圆柱形</td>
+            <td></td>
+            <td>2.2</td>
+            <td>40</td>
+            <td>无</td>
+            <td>2A恒流充电至4.2v,转4.2v恒压充满</td>
+            <td>从0.5-5A随机选一个电流放电,每次1分钟直至3.2V.  0.5A(7.2%),1A(14.8%),1.5A(19.3%),2.0A(21.6%),2.5A(14.6%),3A(10.0%),3.5A(6.5%),4A(4%),4.5A(1.5%),5A(0.5%)</td>
+            <td>50-80%SOH</td>
+            <td>Q, IR, V, I, T </td>
+            <td>2008</td>
+          </tr>
+          <tr>
+            <td>NASAdata2(28)</td>      
+            <td class="display-as-link"><a href="马里兰容量曲线.html">RW23</a></td>
+            <td>18650</td>
+            <td>圆柱形</td>
+            <td></td>
+            <td>2.2</td>
+            <td>40</td>
+            <td>无</td>
+            <td>2A恒流充电至4.2v,转4.2v恒压充满</td>
+            <td>从0.5-5A随机选一个电流放电,每次1分钟直至3.2V.  0.5A(7.2%),1A(14.8%),1.5A(19.3%),2.0A(21.6%),2.5A(14.6%),3A(10.0%),3.5A(6.5%),4A(4%),4.5A(1.5%),5A(0.5%)</td>
+            <td>50-80%SOH</td>
+            <td>Q, IR, V, I, T </td>
+            <td>2008</td>
+          </tr>
+          <tr>
+            <td>NASAdata2(28)</td>      
+            <td class="display-as-link"><a href="马里兰容量曲线.html">RW24</a></td>
+            <td>18650</td>
+            <td>圆柱形</td>
+            <td></td>
+            <td>2.2</td>
+            <td>40</td>
+            <td>无</td>
+            <td>2A恒流充电至4.2v,转4.2v恒压充满</td>
+            <td>从0.5-5A随机选一个电流放电,每次1分钟直至3.2V.  0.5A(7.2%),1A(14.8%),1.5A(19.3%),2.0A(21.6%),2.5A(14.6%),3A(10.0%),3.5A(6.5%),4A(4%),4.5A(1.5%),5A(0.5%)</td>
+            <td>50-80%SOH</td>
+            <td>Q, IR, V, I, T </td>
+            <td>2008</td>
+          </tr>
+          <tr>
+            <td>NASAdata2(28)</td>      
+            <td class="display-as-link"><a href="马里兰容量曲线.html">RW25</a></td>
+            <td>18650</td>
+            <td>圆柱形</td>
+            <td></td>
+            <td>2.2</td>
+            <td>40</td>
+            <td>无</td>
+            <td>2A恒流充电至4.2v,转4.2v恒压充满</td>
+            <td>从0.5-5A随机选一个电流放电,每次1分钟直至3.2V.  0.5A(2%),1A(2.4%),1.5A(3.6%),2.0A(6.0%),2.5A(9.2%),3A(11.8%),3.5A(17.2%),4A(23.4%),4.5A(19.4%),5A(5%)</td>
+            <td>50-80%SOH</td>
+            <td>Q, IR, V, I, T </td>
+            <td>2008</td>
+          </tr>
+          <tr>
+            <td>NASAdata2(28)</td>      
+            <td class="display-as-link"><a href="马里兰容量曲线.html">RW26</a></td>
+            <td>18650</td>
+            <td>圆柱形</td>
+            <td></td>
+            <td>2.2</td>
+            <td>40</td>
+            <td>无</td>
+            <td>2A恒流充电至4.2v,转4.2v恒压充满</td>
+            <td>从0.5-5A随机选一个电流放电,每次1分钟直至3.2V.  0.5A(2%),1A(2.4%),1.5A(3.6%),2.0A(6.0%),2.5A(9.2%),3A(11.8%),3.5A(17.2%),4A(23.4%),4.5A(19.4%),5A(5%)</td>
+            <td>50-80%SOH</td>
+            <td>Q, IR, V, I, T </td>
+            <td>2008</td>
+          </tr>
+          <tr>
+            <td>NASAdata2(28)</td>      
+            <td class="display-as-link"><a href="马里兰容量曲线.html">RW27</a></td>
+            <td>18650</td>
+            <td>圆柱形</td>
+            <td></td>
+            <td>2.2</td>
+            <td>40</td>
+            <td>无</td>
+            <td>2A恒流充电至4.2v,转4.2v恒压充满</td>
+            <td>从0.5-5A随机选一个电流放电,每次1分钟直至3.2V.  
+              0.5A(2%),1A(2.4%),1.5A(3.6%),2.0A(6.0%),2.5A(9.2%),3A(11.8%),3.5A(17.2%),4A(23.4%),4.5A(19.4%),5A(5%)</td>
+            <td>50-80%SOH</td>
+            <td>Q, IR, V, I, T </td>
+            <td>2008</td>
+          </tr>
+          <tr>
+            <td>NASAdata2(28)</td>      
+            <td class="display-as-link"><a href="马里兰容量曲线.html">RW28</a></td>
+            <td>18650</td>
+            <td>圆柱形</td>
+            <td></td>
+            <td>2.2</td>
+            <td>40</td>
+            <td>无</td>
+            <td>2A恒流充电至4.2v,转4.2v恒压充满</td>
+            <td>从0.5-5A随机选一个电流放电,每次1分钟直至3.2V.  0.5A(2%),1A(2.4%),1.5A(3.6%),2.0A(6.0%),2.5A(9.2%),3A(11.8%),3.5A(17.2%),4A(23.4%),4.5A(19.4%),5A(5%)</td>
+            <td>50-80%SOH</td>
+            <td>Q, IR, V, I, T </td>
+            <td>2008</td>
+          </tr>
+
+
+          </tbody>
+        </table>
+      </div>
+
+<div class="pagination">
+  <div class="pagination-links"></div>
+  <div class="pagination-input-container">
+    <input type="number" id="go-to-page-input" class="go-to-page-input" />
+    <button id="go-to-page-button" class="go-to-page-button">Go</button>
+  </div>
+</div>
+
+<script>
+  const table = document.getElementById('table');
+  const nameFilter = document.getElementById('name-filter');
+  const capacityFilter = document.getElementById('capacity-filter');
+  const voltageFilter = document.getElementById('voltage-filter');
+const shapeFilter = document.getElementById('shape-filter');
+const materialFilter = document.getElementById('material-filter');
+const ahFilter = document.getElementById('ah-filter');
+const temperatureFilter = document.getElementById('temperature-filter');
+const kneeFilter = document.getElementById('knee-filter');
+const chargeFilter = document.getElementById('charge-filter');
+const dischargeFilter = document.getElementById('discharge-filter');
+const cutoffFilter = document.getElementById('cutoff-filter');
+const testFilter = document.getElementById('test-filter');
+const yearFilter = document.getElementById('year-filter');
+
+  const filterButton = document.getElementById('filter-button');
+  const goToPageInput = document.getElementById('go-to-page-input');
+  const goToPageButton = document.getElementById('go-to-page-button');
+  const tableRows = Array.from(table.getElementsByTagName('tr')).slice(1);
+  let currentPage = 1;
+  let rowsPerPage = 8;
+
+  // 添加链接列
+  //tableRows.forEach(row => {
+    //const link = row.lastElementChild.textContent;
+   // row.lastElementChild.innerHTML = `<a href="${link}" target="_blank">Link</a>`;
+  //});
+
+  function filterRows() {
+    let filteredRows = tableRows.filter(row => {
+      const name = row.firstElementChild.textContent.toLowerCase();
+      const capacity = row.children[1].textContent;
+      const voltage = row.children[2].textContent;
+    const shape = row.children[3].textContent;
+    const material = row.children[4].textContent;
+    const ah = row.children[5].textContent;
+    const temperature = row.children[6].textContent;
+    const knee = row.children[7].textContent;
+    const charge = row.children[8].textContent;
+    const discharge = row.children[9].textContent;
+    const cutoff = row.children[10].textContent;
+    const test = row.children[11].textContent;
+    const year = row.children[12].textContent;
+  
+      return (
+        name.includes(nameFilter.value.toLowerCase()) &&
+        (capacityFilter.value === '' || capacity === capacityFilter.value) &&
+        (voltageFilter.value === '' || voltage === voltageFilter.value) &&
+      (shapeFilter.value === '' || shape === shapeFilter.value) &&
+      (materialFilter.value === '' || material === materialFilter.value) &&
+      (ahFilter.value === '' || ah === ahFilter.value) &&
+      (temperatureFilter.value === '' || temperature  === temperatureFilter.value) &&
+      (kneeFilter.value === '' || knee === kneeFilter.value) &&
+      (chargeFilter.value === '' || charge === chargeFilter.value) &&
+      (dischargeFilter.value === '' || discharge === dischargeFilter.value) &&
+      (cutoffFilter.value === '' || cutoff === cutoffFilter.value) &&
+      (testFilter.value === '' || test === testFilter.value) &&
+      (yearFilter.value === '' || year === yearFilter.value)
+
+      );
+    });
+    return filteredRows;
+  }
+
+  function paginateRows(rows) {
+    const startIndex = (currentPage - 1) * rowsPerPage;
+    const endIndex = startIndex + rowsPerPage;
+    return rows.slice(startIndex, endIndex);
+  }
+
+  function displayRows(rows) {
+    // 清空表格
+    table.getElementsByTagName('tbody')[0].innerHTML = '';
+
+    // 将筛选后的行添加到表格
+    rows.forEach(row => {
+      table.getElementsByTagName('tbody')[0].appendChild(row);
+    });
+  }
+
+  function displayPaginationLinks(rows) {
+    const numPages = Math.ceil(rows.length / rowsPerPage);
+
+    // 生成页码链接
+    let linksHtml = '';
+    for (let i = 1; i <= numPages; i++) {
+      const isActive = i === currentPage ? 'active' : '';
+      linksHtml += `<span class="page-link ${isActive}">${i}</span>`;
+    }
+    document.getElementsByClassName(
+      'pagination-links'
+    )[0].innerHTML = linksHtml;
+
+    // 给每个链接绑定点击事件
+    const pageLinks = Array.from(document.getElementsByClassName('page-link'));
+    pageLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        currentPage = parseInt(link.textContent);
+        displayRows(paginateRows(filterRows()));
+        displayPaginationLinks(filterRows());
+      });
+    });
+  }
+
+  function goToPage() {
+    const pageNumber = parseInt(goToPageInput.value);
+    if (pageNumber >= 1 && pageNumber <= Math.ceil(filterRows().length / rowsPerPage)) {
+      currentPage = pageNumber;
+      displayRows(paginateRows(filterRows()));
+      displayPaginationLinks(filterRows());
+    }
+    goToPageInput.value = '';
+  }
+
+  // 初始加载时显示第一页
+  displayRows(paginateRows(filterRows()));
+  displayPaginationLinks(filterRows());
+
+  // 绑定事件监听器
+  filterButton.addEventListener('click', () => {
+    currentPage = 1;
+    displayRows(paginateRows(filterRows()));
+    displayPaginationLinks(filterRows());
+  });
+
+  goToPageButton.addEventListener('click', goToPage);
+
+  goToPageInput.addEventListener('keypress', e => {
+    if (e.key === 'Enter') {
+      goToPage();
+    }
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>CSV数据写入表格</title>
+    <meta charset="utf-8">
+    <style>
+      table {
+        border-collapse: collapse;
+        border-spacing: 0;
+      }
+
+      td,
+      th {
+        border: 1px solid black;
+        padding: 8px;
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <table id="table"></table>
+    <script>
+      // 读取CSV文件
+      fetch('./麻省理工-斯坦福-丰田.csv')
+        .then(response => response.text())
+        .then(data => {
+          // 将文本内容按行和列分割为数组
+          const rows = data.split('\n');
+          const headers = rows[0].split(',');
+
+          // 创建表头
+          const table = document.getElementById('table');
+          const thead = document.createElement('thead');
+          const tr = document.createElement('tr');
+          headers.forEach(header => {
+            const th = document.createElement('th');
+            th.textContent = header;
+            tr.appendChild(th);
+          });
+          thead.appendChild(tr);
+          table.appendChild(thead);
+
+          // 创建表格内容
+          const tbody = document.createElement('tbody');
+          for (let i = 1; i < rows.length; i++) {
+            const row = rows[i].split(',');
+            const tr = document.createElement('tr');
+            row.forEach(cell => {
+              const td = document.createElement('td');
+              td.textContent = cell;
+              tr.appendChild(td);
+            });
+            tbody.appendChild(tr);
+          }
+          table.appendChild(tbody);
+        });
+    </script>
+  </body>
+</html>

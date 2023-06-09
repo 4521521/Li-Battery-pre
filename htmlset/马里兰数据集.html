@@ -1,0 +1,1176 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>马里兰数据集</title>
+    <style>
+      /* 样式表 */
+      .dropdown {
+            display: inline-block;
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            z-index: 1;
+            background-color: white;
+            width: 120px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            
+            transform: translateY(50%);
+            text-align: center;
+        }
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+        .dropdown-content a {
+            color: black;
+            text-decoration: none;
+            display: block;
+            padding: 8px;
+        }
+        .dropdown-content a:hover {
+            background-color: #f1f1f1;
+        }
+        .button-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.btn-redirect {
+  background-color: #61b7ea;
+  padding: 8px 10px;
+  border-radius: 3px;
+  border: none;
+  color: #fff;
+  font-size: 18px;
+  cursor: pointer;
+  opacity: 0.9;
+}
+
+.btn-redirect:hover {
+  background-color: #5cb541;
+}
+
+.filter-container {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.filter-input {
+  border: none;
+  border-bottom: 2px solid #050604;
+  padding: 6px 12px;
+  font-size: 16px;
+  color: #333;
+  background-color: transparent;
+  vertical-align: middle;
+}
+
+.filter-select {
+  border: none;
+  border-bottom: 2px solid #a2d73e;
+  padding: 6px 12px;
+  font-size: 16px;
+  color: #333;
+  background-color: transparent;
+  vertical-align: middle;
+}
+
+.filter-button {
+  border: none;
+  padding: 6px 12px;
+  font-size: 16px;
+  color: #fff;
+  border-radius: 5px;
+  background-color: #a2d73e;
+  cursor: pointer;
+  vertical-align: middle;
+}
+
+.table-container {
+  overflow-x: auto;
+  margin: 10px 0;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+  box-shadow: 0 0 10px rgba(0,0,0,0.2);
+}
+
+th,
+td {
+  border: none;
+  text-align: left;
+  padding: 8px;
+}
+
+th {
+  background-color: #cce0a6;
+  color: #0b0b0b;
+}
+
+tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.page-link {
+  border: 1px solid #ddd;
+  padding: 5px 10px;
+  cursor: pointer;
+  background-color: transparent;
+  color: #333;
+  margin: 0 5px;
+  border-radius: 5px;
+}
+
+.page-link.active {
+  background-color: #a2d73e;
+  color: #fff;
+}
+
+.page-link.disabled {
+  color: #aaa;
+  cursor: default;
+  background-color: transparent;
+}
+
+.pagination-input-container {
+  margin-left: 20px;
+}
+
+.go-to-page-input {
+  width: 50px;
+  margin-right: 5px;
+  padding: 5px;
+  border: none;
+  border-bottom: 2px solid #a2d73e;
+  background-color: transparent;
+  font-size: 16px;
+  color: #333;
+}
+
+.go-to-page-button {
+  border: none;
+  padding: 6px 12px;
+  font-size: 16px;
+  color: #fff;
+  border-radius: 5px;
+  background-color: #a2d73e;
+  cursor: pointer;
+  vertical-align: middle;
+}
+    </style>
+  </head>
+
+  <body>
+    <h1>马里兰数据集</h1>
+    <div class="button-container">
+    <div class="dropdown">
+      <a href="../index.html" class="btn-redirect">返回主界面</a>
+    </div>
+    </div>
+    <div class="filter-container">
+      <!--
+      <div>
+        <label for="name-filter">Name:</label>
+        <input type="text" id="name-filter" class="filter-input" />
+      </div>
+      -->
+      <div>
+        <label for="name-filter">Name:</label>
+        <select id="name-filter" class="filter-select">
+          <option value="">All</option>
+          <option value="马里兰CS2(15)">马里兰CS2(15)</option>
+          <option value="马里兰CX2(12)">马里兰CX2(12)</option>
+          <option value="马里兰PL(16)">马里兰PL(16)</option>
+        </select>
+      </div>
+      <div>
+        <label for="capacity-filter">电池编号:</label>
+        <select id="capacity-filter" class="filter-select">
+          <option value="">All</option>
+          <option value="CS2_3">CS2_3</option>
+          <option value="CS2_5">CS2_5</option>
+          <option value="CS2_7">CS2_7</option>
+          <option value="CS2_8">CS2_8</option>
+          <option value="CS2_9">CS2_9</option>
+          <option value="CS2_21">CS2_21</option>
+          <option value="CS2_25">CS2_25</option>
+          <option value="CS2_33">CS2_33</option>
+          <option value="CS2_34">CS2_34</option>
+          <option value="CS2_35">CS2_35</option>
+          <option value="CS2_36">CS2_36</option>
+          <option value="CS2_37">CS2_37</option>
+          <option value="CS2_38">CS2_38</option>
+
+          <option value="CX2_3">CX2_3</option>
+          <option value="CX2_4">CX2_4</option>
+          <option value="CX2_8">CX2_8</option>
+          <option value="CX2_16">CX2_16</option>
+          <option value="CX2_31">CX2_31</option>
+          <option value="CX2_32">CX2_32</option>
+          <option value="CX2_33">CX2_33</option>
+          <option value="CX2_34">CX2_34</option>
+          <option value="CX2_35">CX2_35</option>
+          <option value="CX2_36">CX2_36</option>
+          <option value="CX2_37">CX2_37</option>
+          <option value="CX2_38">CX2_38</option>
+
+          <option value="PL_3">PL_3</option>
+          <option value="PL_4">PL_4</option>
+          <option value="PL_5">PL_5</option>
+          <option value="PL_9">PL_9</option>
+          <option value="PL_10">PL_10</option>
+          <option value="PL_11">PL_11</option>
+          <option value="PL_12">PL_12</option>
+          <option value="PL_13">PL_13</option>
+          <option value="PL_14">PL_14</option>
+          <option value="PL_17">PL_17</option>
+          <option value="PL_18">PL_18</option>
+          <option value="PL_19">PL_19</option>
+          <option value="PL_21">PL_21</option>
+          <option value="PL_23">PL_23</option>
+          <option value="PL_24">PL_24</option>
+          <option value="PL_25">PL_25</option>
+
+        </select>
+      </div>
+      <div>
+        <label for="voltage-filter">型号:</label>
+        <select id="voltage-filter" class="filter-select">
+          <option value="">All</option>
+          <option value="110V">110V</option>
+          <option value="220V">220V</option>
+        </select>
+      </div>
+    <div>
+      <label for="shape-filter">形状:</label>
+      <select id="shape-filter" class="filter-select">
+        <option value="">All</option>
+        <option value="棱柱状">棱柱状</option>
+        <option value="袋装">袋装</option>
+      </select>
+    </div>
+  <div>
+    <label for="material-filter">材质:</label>
+    <select id="material-filter" class="filter-select">
+      <option value="">All</option>
+      <option value="LiCoO2">LiCoO2</option>
+      <option value="LiCoO2/Graphite">LiCoO2/Graphite</option>
+    </select>
+  </div>
+<div>
+  <label for="ah-filter">标称容量/Ah:</label>
+  <select id="ah-filter" class="filter-select">
+    <option value="">All</option>
+    <option value="0.9">0.9</option>
+    <option value="1.1">1.1</option>
+    <option value="1.35">1.35</option>
+    <option value="1.5">1.5</option>
+  </select>
+</div>
+<div>
+  <label for="temperature-filter">温度/℃:</label>
+  <select id="temperature-filter" class="filter-select">
+    <option value="">All</option>
+    <option value="23">23</option>
+    <option value="25">25</option>
+    <option value="25,35,45,55">25,35,45,55</option>
+  </select>
+</div>
+<div>
+  <label for="knee-filter">有无拐点:</label>
+  <select id="knee-filter" class="filter-select">
+    <option value="">All</option>
+    <option value="有">有</option>
+    <option value="无">无</option>
+  </select>
+</div>
+<div>
+  <label for="charge-filter">充电方式:</label>
+  <select id="charge-filter" class="filter-select">
+    <option value="">All</option>
+    <option value="0.5c恒流充电至4.2v,4.2v充电至电流降至0.05A">0.5c恒流充电至4.2v,4.2v充电至电流降至0.05A</option>
+    <option value="0.55A恒流充电至3.77v">0.55A恒流充电至3.77v</option>
+    <option value="0.55A恒流充电至4.2v">0.55A恒流充电至4.2v</option>
+    <option value="0.5c恒流充电至60%soc">0.5c恒流充电至60%soc</option>
+    <option value="0.5c恒流充电至80%soc">0.5c恒流充电至80%soc</option>
+    <option value="0.5c恒流充电至100%soc">0.5c恒流充电至100%soc</option>
+  </select>
+</div>
+<div>
+  <label for="discharge-filter">放电方式:</label>
+  <select id="discharge-filter" class="filter-select">
+    <option value="">All</option>
+    <option value="0.5c恒流放电至2.7v">0.5c恒流放电至2.7v</option>
+    <option value="1c恒流放电至2.7v">1c恒流放电至2.7v</option>
+    <option value="恒流放电至2,7V,每个循环的放电电流在0.11,0,22,0.55,1.1,1.65,2.2A之间交替">恒流放电至2,7V,
+      每个循环的放电电流在0.11,0,22,0.55,1.1,1.65,2.2A之间交替</option>
+    <option value="0.55A恒流放电，随机更改截止电压">0.55A恒流放电，随机更改截止电压</option>
+    <option value="0.55A恒流放电至2.7v">0.55A恒流放电至2.7v</option>
+    <option value="0.55A恒流放电至3.77v">0.55A恒流放电至3.77v</option>
+    <option value="0.5c恒流放电至2.8v">0.5c恒流放电至2.8v</option>
+    <option value="3c恒流放电至2.9v">3c恒流放电至2.9v</option>
+    <option value="以0.5C至1C之间的脉冲电流放电30秒,直到电压降至3.2V。以0.5C的恒定电流放电至2.7V">以0.5C至1C之间的脉冲电流放电30秒,
+      直到电压降至3.2V。以0.5C的恒定电流放电至2.7V</option>
+      <option value="以1C的恒定电流放电至2.7V。每 10 次充电/放电循环后，环境温度升高 10°C,使电池在 25℃,35°C,45°C 和 55°C 之间循环">以1C的恒定电流放电至2.7V。每 10 次充电/放电循环后，环境温度升高 10°C,
+    使电池在 25℃,35°C,45°C 和 55°C 之间循环</option>
+      <option value="0.5C的放电1分钟,休息5分钟,然后1C放电1分钟,休息5分钟,最后2C放电1分钟,休息5分钟。重复此操作,直到电池达到截止电压2.7v">0.5C的放电1分钟,休息5分钟,然后1C放电1分钟,休息5分钟,最后2C放电1分钟,休息5分钟。
+      重复此操作,直到电池达到截止电压2.7v</option>
+      <option value="0.5c恒流放电至0%soc">0.5c恒流放电至0%soc</option>
+      <option value="0.5c恒流放电至20%soc">0.5c恒流放电至20%soc</option>
+      <option value="0.5c恒流放电至40%soc">0.5c恒流放电至40%soc</option>
+      <option value="2c恒流放电至0%soc">2c恒流放电至0%soc</option>
+      <option value="2c恒流放电至20%soc">2c恒流放电至20%soc</option>
+      <option value="2c恒流放电至40%soc">2c恒流放电至40%soc</option>
+  </select>
+</div>
+<div>
+  <label for="cutoff-filter">截至条件:</label>
+  <select id="cutoff-filter" class="filter-select">
+    <option value="">All</option>
+    <option value="80%SOH">80%SOH</option>
+    <option value="90%SOH
+    600-800个循环">90%SOH
+    600-800个循环</option>
+  </select>
+</div>
+<div>
+  <label for="test-filter">测试量:</label>
+  <select id="test-filter" class="filter-select">
+    <option value="">All</option>
+    <option value="Q, IR, E, V, I, T ">Q, IR, E, V, I, T </option>
+    <option value="Q, V, I ">Q, V, I </option>
+  </select>
+</div>
+<div>
+  <label for="year-filter">发布年份:</label>
+  <select id="year-filter" class="filter-select">
+    <option value="">All</option>
+    <option value="2011年前">2011年前</option>
+    <option value="2016年前">2016年前</option>
+  </select>
+</div>
+<button id="filter-button" class="filter-button">Filter</button>
+</div>
+<hr style="border: 3px solid black;">
+    <div class="table-container">
+      <table id="table">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>电池编号</th>
+            <th>型号</th>
+            <th>形状</th>
+            <th>材质</th>
+            <th>标称容量/Ah</th>
+            <th>温度/℃</th>
+            <th>有无拐点</th>
+            <th>充电方式</th>
+            <th>放电方式</th>
+            <th>截止条件</th>
+            <th>测试量</th>
+            <th>发布年份</th>
+            <th>许可</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>马里兰CS2(15)</td>     
+            <td class="display-as-link"><a href="everynumber/马里兰/CS2_3/CS3_2电流.html">CS2_3</a></td>
+            <td></td>
+            <td>棱柱状</td>
+            <td>LiCoO2</td>
+            <td>1.1</td>
+            <td>23</td>
+            <td>有</td>
+            <td>0.5c恒流充电至4.2v,
+              4.2v充电至电流降至0.05A</td>
+            <td>恒流放电至2,7V,每个循环的放电电流在0.11,0,22,0.55,1.1,1.65,2.2A之间交替</td>
+            <td>80%SOH</td>
+            <td>Q, IR, E, V, I, T </td>
+            <td>2011年前</td>
+          </tr>
+          <tr>
+            <td>马里兰CS2(15)</td>      
+            <td class="display-as-link"><a href="everynumber/马里兰/CS2_3/CS3_2电流.html">CS2_5</a></td>
+            <td></td>
+            <td>棱柱状</td>
+            <td>LiCoO2</td>
+            <td>1.1</td>
+            <td>23</td>
+            <td>有</td>
+            <td>0.55A恒流充电至3.77v</td>
+            <td>0.55A恒流放电至2.7v</td>
+            <td>80%SOH</td>
+            <td>Q, IR, E, V, I, T </td>
+            <td>2011年前</td>
+          </tr>
+          <tr>
+            <td>马里兰CS2(15)</td>   
+            <td class="display-as-link"><a href="everynumber/马里兰/CS2_3/CS3_2电流.html">CS2_7</a></td>
+            <td></td>
+            <td>棱柱状</td>
+            <td>LiCoO2</td>
+            <td>1.1</td>
+            <td>23</td>
+            <td>有</td>
+            <td>0.5c恒流充电至4.2v,4.2v充电至电流降至0.05A</td>
+            <td>0.55A恒流放电，随机更改截止电压</td>
+            <td>80%SOH</td>
+            <td>Q, IR, E, V, I, T </td>
+            <td>2011年前</td>
+          </tr>
+          <tr>
+            <td>马里兰CS2(15)</td>     
+            <td class="display-as-link"><a href="everynumber/马里兰/CS2_8/CS3_8电流.html">CS2_8</a></td>
+            <td></td>
+            <td>棱柱状</td>
+            <td>LiCoO2</td>
+            <td>0.9</td>
+            <td>23</td>
+            <td>有</td>
+            <td>0.5c恒流充电至4.2v,4.2v充电至电流降至0.05A</td>
+            <td>0.5c恒流放电至2.7v</td>
+            <td>80%SOH</td>
+            <td>Q, IR, E, V, I, T </td>
+            <td>2011年前</td>
+          </tr>
+          <tr>
+            <td>马里兰CS2(15)</td>       
+            <td class="display-as-link"><a href="everynumber/马里兰/CS2_3/CS3_2电流.html">CS2_9</a></td>
+            <td></td>
+            <td>棱柱状</td>
+            <td>LiCoO2</td>
+            <td>1.1</td>
+            <td>23</td>
+            <td>有</td>
+            <td>0.5c恒流充电至4.2v,4.2v充电至电流降至0.05A</td>
+            <td>恒流放电至2,7V,每个循环的放电电流在0.11,0,22,0.55,1.1,1.65,2.2A之间交替</td>
+            <td>80%SOH</td>
+            <td>Q, IR, E, V, I, T </td>
+            <td>2011年前</td>
+          </tr>
+          <tr>
+            <td>马里兰CS2(15)</td>       
+            <td class="display-as-link"><a href="everynumber/马里兰/CS2_3/CS3_2电流.html">CS2_21</a></td>
+            <td></td>
+            <td>棱柱状</td>
+            <td>LiCoO2</td>
+            <td>0.9</td>
+            <td>23</td>
+            <td>有</td>
+            <td>0.5c恒流充电至4.2v,4.2v充电至电流降至0.05A</td>
+            <td>0.5c恒流放电至2.7v</td>
+            <td>80%SOH</td>
+            <td>Q, IR, E, V, I, T </td>
+            <td>2011年前</td>
+          </tr>
+          <tr>
+            <td>马里兰CS2(15)</td>      
+            <td class="display-as-link"><a href="马里兰容量曲线.html">CS2_25</a></td>
+            <td></td>
+            <td>棱柱状</td>
+            <td>LiCoO2</td>
+            <td>1.1</td>
+            <td>23</td>
+            <td>有</td>
+            <td>0.55A恒流充电至4.2v</td>
+            <td>0.55A恒流放电至3.77v</td>
+            <td>80%SOH</td>
+            <td>Q, IR, E, V, I, T </td>
+            <td>2011年前</td>
+          </tr>
+          <tr>
+            <td>马里兰CS2(15)</td>      
+            <td class="display-as-link"><a href="马里兰容量曲线.html">CS2_33</a></td>
+            <td></td>
+            <td>棱柱状</td>
+            <td>LiCoO2</td>
+            <td>0.9</td>
+            <td>23</td>
+            <td>有</td>
+            <td>0.5c恒流充电至4.2v,4.2v充电至电流降至0.05A</td>
+            <td>0.5c恒流放电至2.7v</td>
+            <td>80%SOH</td>
+            <td>Q, IR, E, V, I, T </td>
+            <td>2011年前</td>
+          </tr>
+          <tr>
+            <td>马里兰CS2(15)</td>    
+            <td class="display-as-link"><a href="马里兰容量曲线.html">CS2_34</a></td>
+            <td></td>
+            <td>棱柱状</td>
+            <td>LiCoO2</td>
+            <td>0.9</td>
+            <td>23</td>
+            <td>有</td>
+            <td>0.5c恒流充电至4.2v,4.2v充电至电流降至0.05A</td>
+            <td>0.5c恒流放电至2.7v</td>
+            <td>80%SOH</td>
+            <td>Q, IR, E, V, I, T </td>
+            <td>2011年前</td>
+          </tr>
+          <tr>
+            <td>马里兰CS2(15)</td>       
+            <td class="display-as-link"><a href="马里兰容量曲线.html">CS2_35</a></td>
+            <td></td>
+            <td>棱柱状</td>
+            <td>LiCoO2</td>
+            <td>1.1</td>
+            <td>23</td>
+            <td>有</td>
+            <td>0.5c恒流充电至4.2v,4.2v充电至电流降至0.05A</td>
+            <td>1c恒流放电至2.7v</td>
+            <td>80%SOH</td>
+            <td>Q, IR, E, V, I, T </td>
+            <td>2011年前</td>
+          </tr>
+          <tr>
+            <td>马里兰CS2(15)</td>      
+            <td class="display-as-link"><a href="马里兰容量曲线.html">CS2_36</a></td>
+            <td></td>
+            <td>棱柱状</td>
+            <td>LiCoO2</td>
+            <td>1.1</td>
+            <td>23</td>
+            <td>有</td>
+            <td>0.5c恒流充电至4.2v,4.2v充电至电流降至0.05A</td>
+            <td>1c恒流放电至2.7v</td>
+            <td>80%SOH</td>
+            <td>Q, IR, E, V, I, T </td>
+            <td>2011年前</td>
+          </tr>
+          <tr>
+            <td>马里兰CS2(15)</td>       
+            <td class="display-as-link"><a href="马里兰容量曲线.html">CS2_37</a></td>
+            <td></td>
+            <td>棱柱状</td>
+            <td>LiCoO2</td>
+            <td>1.1</td>
+            <td>23</td>
+            <td>有</td>
+            <td>0.5c恒流充电至4.2v,4.2v充电至电流降至0.05A</td>
+            <td>1c恒流放电至2.7v</td>
+            <td>80%SOH</td>
+            <td>Q, IR, E, V, I, T </td>
+            <td>2011年前</td>
+          </tr>
+          <tr>
+            <td>马里兰CS2(15)</td>   
+            <td class="display-as-link"><a href="马里兰容量曲线.html">CS2_38</a></td>
+            <td></td>
+            <td>棱柱状</td>
+            <td>LiCoO2</td>
+            <td>1.1</td>
+            <td>23</td>
+            <td>有</td>
+            <td>0.5c恒流充电至4.2v,4.2v充电至电流降至0.05A</td>
+            <td>1c恒流放电至2.7v</td>
+            <td>80%SOH</td>
+            <td>Q, IR, E, V, I, T </td>
+            <td>2011年前</td>
+          </tr>
+
+
+          <tr>
+            <td>马里兰CX2(12)</td>      
+            <td class="display-as-link"><a href="马里兰容量曲线.html">CX2_3</a></td>
+            <td></td>
+            <td>棱柱状</td>
+            <td>LiCoO2</td>
+            <td>1.1</td>
+            <td>23</td>
+            <td>有</td>
+            <td>0.5c恒流充电至4.2v,4.2v充电至电流降至0.05A</td>
+            <td>以0.5C至1C之间的脉冲电流放电30秒,直到电压降至3.2V。以0.5C的恒定电流放电至2.7V</td>
+            <td>80%SOH</td>
+            <td>Q, IR, E, V, I, T </td>
+            <td>2011年前</td>
+          </tr>
+          <tr>
+            <td>马里兰CX2(12)</td>      
+            <td class="display-as-link"><a href="马里兰容量曲线.html">CX2_4</a></td>
+            <td></td>
+            <td>棱柱状</td>
+            <td>LiCoO2</td>
+            <td>1.35</td>
+            <td>23</td>
+            <td></td>
+            <td>0.5c恒流充电至4.2v,4.2v充电至电流降至0.05A</td>
+            <td>以1C的恒定电流放电至2.7V。每 10 次充电/放电循环后，环境温度升高 10°C,使电池在 25℃,35°C,45°C 和 55°C 之间循环</td>
+            <td>80%SOH</td>
+            <td>Q, IR, E, V, I, T </td>
+            <td>2011年前</td>
+          </tr>
+          <tr>
+            <td>马里兰CX2(12)</td>  
+            <td class="display-as-link"><a href="马里兰容量曲线.html">CX2_8</a></td>
+            <td></td>
+            <td>棱柱状</td>
+            <td>LiCoO2</td>
+            <td>1.35</td>
+            <td>23</td>
+            <td></td>
+            <td>0.5c恒流充电至4.2v,4.2v充电至电流降至0.05A</td>
+            <td>3c恒流放电至2.9v</td>
+            <td>80%SOH</td>
+            <td>Q, IR, E, V, I, T </td>
+            <td>2011年前</td>
+          </tr>
+          <tr>
+            <td>马里兰CX2(12)</td>      
+            <td class="display-as-link"><a href="马里兰容量曲线.html">CX2_16</a></td>
+            <td></td>
+            <td>棱柱状</td>
+            <td>LiCoO2</td>
+            <td>1.35</td>
+            <td>23</td>
+            <td></td>
+            <td>0.5c恒流充电至4.2v,4.2v充电至电流降至0.05A</td>
+            <td>0.5c恒流放电至2.7v</td>
+            <td>80%SOH</td>
+            <td>Q, IR, E, V, I, T </td>
+            <td>2011年前</td>
+          </tr>
+          <tr>
+            <td>马里兰CX2(12)</td>    
+            <td class="display-as-link"><a href="马里兰容量曲线.html">CX2_31</a></td>
+            <td></td>
+            <td>棱柱状</td>
+            <td>LiCoO2</td>
+            <td>1.35</td>
+            <td>23</td>
+            <td></td>
+            <td>0.5c恒流充电至4.2v,4.2v充电至电流降至0.05A</td>
+            <td>0.5c恒流放电至2.7v</td>
+            <td>80%SOH</td>
+            <td>Q, IR, E, V, I, T </td>
+            <td>2011年前</td>
+          </tr>
+          <tr>
+            <td>马里兰CX2(12)</td>     
+            <td class="display-as-link"><a href="马里兰容量曲线.html">CX2_32</a></td>
+            <td></td>
+            <td>棱柱状</td>
+            <td>LiCoO2</td>
+            <td>1.35</td>
+            <td>23</td>
+            <td></td>
+            <td>0.5c恒流充电至4.2v,4.2v充电至电流降至0.05A</td>
+            <td>0.5C的放电1分钟,休息5分钟,然后1C放电1分钟,休息5分钟,最后2C放电1分钟,休息5分钟。重复此操作,直到电池达到截止电压2.7v</td>
+            <td>80%SOH</td>
+            <td>Q, IR, E, V, I, T </td>
+            <td>2011年前</td>
+          </tr>
+          <tr>
+            <td>马里兰CX2(12)</td>     
+            <td class="display-as-link"><a href="马里兰容量曲线.html">CX2_33</a></td>
+            <td></td>
+            <td>棱柱状</td>
+            <td>LiCoO2</td>
+            <td>1.35</td>
+            <td>23</td>
+            <td></td>
+            <td>0.5c恒流充电至4.2v,4.2v充电至电流降至0.05A</td>
+            <td>0.5c恒流放电至2.7v</td>
+            <td>80%SOH</td>
+            <td>Q, IR, E, V, I, T </td>
+            <td>2011年前</td>
+          </tr>
+          <tr>
+            <td>马里兰CX2(12)</td>      
+            <td class="display-as-link"><a href="马里兰容量曲线.html">CX2_34</a></td>
+            <td></td>
+            <td>棱柱状</td>
+            <td>LiCoO2</td>
+            <td>1.35</td>
+            <td>23</td>
+            <td></td>
+            <td>0.5c恒流充电至4.2v,4.2v充电至电流降至0.05A</td>
+            <td>0.5c恒流放电至2.8v</td>
+            <td>80%SOH</td>
+            <td>Q, IR, E, V, I, T </td>
+            <td>2011年前</td>
+          </tr>
+          <tr>
+            <td>马里兰CX2(12)</td>    
+            <td class="display-as-link"><a href="马里兰容量曲线.html">CX2_35</a></td>
+            <td></td>
+            <td>棱柱状</td>
+            <td>LiCoO2</td>
+            <td>1.35</td>
+            <td>23</td>
+            <td></td>
+            <td>0.5c恒流充电至4.2v,4.2v充电至电流降至0.05A</td>
+            <td>0.5c恒流放电至2.7v</td>
+            <td>80%SOH</td>
+            <td>Q, IR, E, V, I, T </td>
+            <td>2011年前</td>
+          </tr>
+          <tr>
+            <td>马里兰CX2(12)</td>     
+            <td class="display-as-link"><a href="马里兰容量曲线.html">CX2_36</a></td>
+            <td></td>
+            <td>棱柱状</td>
+            <td>LiCoO2</td>
+            <td>1.35</td>
+            <td>23</td>
+            <td></td>
+            <td>0.5c恒流充电至4.2v,4.2v充电至电流降至0.05A</td>
+            <td>0.5c恒流放电至2.8v</td>
+            <td>80%SOH</td>
+            <td>Q, IR, E, V, I, T </td>
+            <td>2011年前</td>
+          </tr>
+          <tr>
+            <td>马里兰CX2(12)</td>    
+            <td class="display-as-link"><a href="马里兰容量曲线.html">CX2_37</a></td>
+            <td></td>
+            <td>棱柱状</td>
+            <td>LiCoO2</td>
+            <td>1.35</td>
+            <td>23</td>
+            <td></td>
+            <td>0.5c恒流充电至4.2v,4.2v充电至电流降至0.05A</td>
+            <td>0.5c恒流放电至2.8v</td>
+            <td>80%SOH</td>
+            <td>Q, IR, E, V, I, T </td>
+            <td>2011年前</td>
+          </tr>
+          <tr>
+            <td>马里兰CX2(12)</td>    
+            <td class="display-as-link"><a href="马里兰容量曲线.html">CX2_38</a></td>
+            <td></td>
+            <td>棱柱状</td>
+            <td>LiCoO2</td>
+            <td>1.35</td>
+            <td>23</td>
+            <td></td>
+            <td>0.5c恒流充电至4.2v,4.2v充电至电流降至0.05A</td>
+            <td>0.5c恒流放电至2.8v</td>
+            <td>80%SOH</td>
+            <td>Q, IR, E, V, I, T </td>
+            <td>2011年前</td>
+          </tr>
+
+          <tr>
+            <td>马里兰PL(16)</td>      
+            <td class="display-as-link"><a href="马里兰容量曲线.html">PL_3</a></td>
+            <td></td>
+            <td>袋装</td>
+            <td>LiCoO2/Graphite</td>
+            <td>1.5</td>
+            <td>25</td>
+            <td></td>
+            <td>0.5c恒流充电至60%soc</td>
+            <td>0.5c恒流放电至0%soc</td>
+            <td>90%SOH
+              600-800个循环</td>
+            <td>Q, V, I </td>
+            <td>2016年前</td>
+          </tr>
+          <tr>
+            <td>马里兰PL(16)</td>      
+            <td class="display-as-link"><a href="马里兰容量曲线.html">PL_4</a></td>
+            <td></td>
+            <td>袋装</td>
+            <td>LiCoO2/Graphite</td>
+            <td>1.5</td>
+            <td>25</td>
+            <td></td>
+            <td>0.5c恒流充电至60%soc</td>
+            <td>0.5c恒流放电至40%soc</td>
+            <td>90%SOH
+              600-800个循环</td>
+            <td>Q, V, I </td>
+            <td>2016年前</td>
+          </tr>
+          <tr>
+            <td>马里兰PL(16)</td>      
+            <td class="display-as-link"><a href="马里兰容量曲线.html">PL_5</a></td>
+            <td></td>
+            <td>袋装</td>
+            <td>LiCoO2/Graphite</td>
+            <td>1.5</td>
+            <td>25</td>
+            <td></td>
+            <td>0.5c恒流充电至60%soc</td>
+            <td>0.5c恒流放电至40%soc</td>
+            <td>90%SOH
+              600-800个循环</td>
+            <td>Q, V, I </td>
+            <td>2016年前</td>
+          </tr>
+          <tr>
+            <td>马里兰PL(16)</td>      
+            <td class="display-as-link"><a href="马里兰容量曲线.html">PL_9</a></td>
+            <td></td>
+            <td>袋装</td>
+            <td>LiCoO2/Graphite</td>
+            <td>1.5</td>
+            <td>25</td>
+            <td></td>
+            <td>0.5c恒流充电至60%soc</td>
+            <td>2c恒流放电至40%soc</td>
+            <td>90%SOH
+              600-800个循环</td>
+            <td>Q, V, I </td>
+            <td>2016年前</td>
+          </tr>
+          <tr>
+            <td>马里兰PL(16)</td>      
+            <td class="display-as-link"><a href="马里兰容量曲线.html">PL_10</a></td>
+            <td></td>
+            <td>袋装</td>
+            <td>LiCoO2/Graphite</td>
+            <td>1.5</td>
+            <td>25</td>
+            <td></td>
+            <td>0.5c恒流充电至60%soc</td>
+            <td>0.5c恒流放电至0%soc</td>
+            <td>90%SOH
+              600-800个循环</td>
+            <td>Q, V, I </td>
+            <td>2016年前</td>
+          </tr>
+          <tr>
+            <td>马里兰PL(16)</td>      
+            <td class="display-as-link"><a href="马里兰容量曲线.html">PL_11</a></td>
+            <td></td>
+            <td>袋装</td>
+            <td>LiCoO2/Graphite</td>
+            <td>1.5</td>
+            <td>25</td>
+            <td></td>
+            <td>0.5c恒流充电至100%soc</td>
+            <td>0.5c恒流放电至0%soc</td>
+            <td>90%SOH
+              600-800个循环</td>
+            <td>Q, V, I </td>
+            <td>2016年前</td>
+          </tr>
+          <tr>
+            <td>马里兰PL(16)</td>      
+            <td class="display-as-link"><a href="马里兰容量曲线.html">PL_12</a></td>
+            <td></td>
+            <td>袋装</td>
+            <td>LiCoO2/Graphite</td>
+            <td>1.5</td>
+            <td>25</td>
+            <td></td>
+            <td>0.5c恒流充电至100%soc</td>
+            <td>2c恒流放电至0%soc</td>
+            <td>90%SOH
+              600-800个循环</td>
+            <td>Q, V, I </td>
+            <td>2016年前</td>
+          </tr>
+          <tr>
+            <td>马里兰PL(16)</td>      
+            <td class="display-as-link"><a href="马里兰容量曲线.html">PL_13</a></td>
+            <td></td>
+            <td>袋装</td>
+            <td>LiCoO2/Graphite</td>
+            <td>1.5</td>
+            <td>25</td>
+            <td></td>
+            <td>0.5c恒流充电至100%soc</td>
+            <td>0.5c恒流放电至0%soc</td>
+            <td>90%SOH
+              600-800个循环</td>
+            <td>Q, V, I </td>
+            <td>2016年前</td>
+          </tr>
+          <tr>
+            <td>马里兰PL(16)</td>      
+            <td class="display-as-link"><a href="马里兰容量曲线.html">PL_14</a></td>
+            <td></td>
+            <td>袋装</td>
+            <td>LiCoO2/Graphite</td>
+            <td>1.5</td>
+            <td>25</td>
+            <td></td>
+            <td>0.5c恒流充电至100%soc</td>
+            <td>2c恒流放电至0%soc</td>
+            <td>90%SOH
+              600-800个循环</td>
+            <td>Q, V, I </td>
+            <td>2016年前</td>
+          </tr>
+          <tr>
+            <td>马里兰PL(16)</td>      
+            <td class="display-as-link"><a href="马里兰容量曲线.html">PL_17</a></td>
+            <td></td>
+            <td>袋装</td>
+            <td>LiCoO2/Graphite</td>
+            <td>1.5</td>
+            <td>25</td>
+            <td></td>
+            <td>0.5c恒流充电至80%soc</td>
+            <td>2c恒流放电至20%soc</td>
+            <td>90%SOH
+              600-800个循环</td>
+            <td>Q, V, I </td>
+            <td>2016年前</td>
+          </tr>
+          <tr>
+            <td>马里兰PL(16)</td>      
+            <td class="display-as-link"><a href="马里兰容量曲线.html">PL_18</a></td>
+            <td></td>
+            <td>袋装</td>
+            <td>LiCoO2/Graphite</td>
+            <td>1.5</td>
+            <td>25</td>
+            <td></td>
+            <td>0.5c恒流充电至80%soc</td>
+            <td>2c恒流放电至20%soc</td>
+            <td>90%SOH
+              600-800个循环</td>
+            <td>Q, V, I </td>
+            <td>2016年前</td>
+          </tr>
+          <tr>
+            <td>马里兰PL(16)</td>      
+            <td class="display-as-link"><a href="马里兰容量曲线.html">PL_19</a></td>
+            <td></td>
+            <td>袋装</td>
+            <td>LiCoO2/Graphite</td>
+            <td>1.5</td>
+            <td>25</td>
+            <td></td>
+            <td>0.5c恒流充电至100%soc</td>
+            <td>0.5c恒流放电至40%soc</td>
+            <td>90%SOH
+              600-800个循环</td>
+            <td>Q, V, I </td>
+            <td>2016年前</td>
+          </tr>
+          <tr>
+            <td>马里兰PL(16)</td>      
+            <td class="display-as-link"><a href="马里兰容量曲线.html">PL_21</a></td>
+            <td></td>
+            <td>袋装</td>
+            <td>LiCoO2/Graphite</td>
+            <td>1.5</td>
+            <td>25</td>
+            <td></td>
+            <td>0.5c恒流充电至80%soc</td>
+            <td>0.5c恒流放电至20%soc</td>
+            <td>90%SOH
+              600-800个循环</td>
+            <td>Q, V, I </td>
+            <td>2016年前</td>
+          </tr>
+          <tr>
+            <td>马里兰PL(16)</td>      
+            <td class="display-as-link"><a href="马里兰容量曲线.html">PL_23</a></td>
+            <td></td>
+            <td>袋装</td>
+            <td>LiCoO2/Graphite</td>
+            <td>1.5</td>
+            <td>25</td>
+            <td></td>
+            <td>0.5c恒流充电至80%soc</td>
+            <td>0.5c恒流放电至20%soc</td>
+            <td>90%SOH
+              600-800个循环</td>
+            <td>Q, V, I </td>
+            <td>2016年前</td>
+          </tr>
+          <tr>
+            <td>马里兰PL(16)</td>      
+            <td class="display-as-link"><a href="马里兰容量曲线.html">PL_24</a></td>
+            <td></td>
+            <td>袋装</td>
+            <td>LiCoO2/Graphite</td>
+            <td>1.5</td>
+            <td>25</td>
+            <td></td>
+            <td>0.5c恒流充电至100%soc</td>
+            <td>0.5c恒流放电至40%soc</td>
+            <td>90%SOH
+              600-800个循环</td>
+            <td>Q, V, I </td>
+            <td>2016年前</td>
+          </tr>
+          <tr>
+            <td>马里兰PL(16)</td>      
+            <td class="display-as-link"><a href="马里兰容量曲线.html">PL_25</a></td>
+            <td></td>
+            <td>袋装</td>
+            <td>LiCoO2/Graphite</td>
+            <td>1.5</td>
+            <td>25</td>
+            <td></td>
+            <td>0.5c恒流充电至60%soc</td>
+            <td>2c恒流放电至40%soc</td>
+            <td>90%SOH
+              600-800个循环</td>
+            <td>Q, V, I </td>
+            <td>2016年前</td>
+          </tr>
+
+          </tbody>
+        </table>
+      </div>
+
+<div class="pagination">
+  <div class="pagination-links"></div>
+  <div class="pagination-input-container">
+    <input type="number" id="go-to-page-input" class="go-to-page-input" />
+    <button id="go-to-page-button" class="go-to-page-button">Go</button>
+  </div>
+</div>
+
+<script>
+  const table = document.getElementById('table');
+  const nameFilter = document.getElementById('name-filter');
+  const capacityFilter = document.getElementById('capacity-filter');
+  const voltageFilter = document.getElementById('voltage-filter');
+const shapeFilter = document.getElementById('shape-filter');
+const materialFilter = document.getElementById('material-filter');
+const ahFilter = document.getElementById('ah-filter');
+const temperatureFilter = document.getElementById('temperature-filter');
+const kneeFilter = document.getElementById('knee-filter');
+const chargeFilter = document.getElementById('charge-filter');
+const dischargeFilter = document.getElementById('discharge-filter');
+const cutoffFilter = document.getElementById('cutoff-filter');
+const testFilter = document.getElementById('test-filter');
+const yearFilter = document.getElementById('year-filter');
+
+  const filterButton = document.getElementById('filter-button');
+  const goToPageInput = document.getElementById('go-to-page-input');
+  const goToPageButton = document.getElementById('go-to-page-button');
+  const tableRows = Array.from(table.getElementsByTagName('tr')).slice(1);
+  let currentPage = 1;
+  let rowsPerPage = 8;
+
+  // 添加链接列
+  //tableRows.forEach(row => {
+    //const link = row.lastElementChild.textContent;
+   // row.lastElementChild.innerHTML = `<a href="${link}" target="_blank">Link</a>`;
+  //});
+
+  function filterRows() {
+    let filteredRows = tableRows.filter(row => {
+      const name = row.firstElementChild.textContent.toLowerCase();
+      const capacity = row.children[1].textContent;
+      const voltage = row.children[2].textContent;
+    const shape = row.children[3].textContent;
+    const material = row.children[4].textContent;
+    const ah = row.children[5].textContent;
+    const temperature = row.children[6].textContent;
+    const knee = row.children[7].textContent;
+    const charge = row.children[8].textContent;
+    const discharge = row.children[9].textContent;
+    const cutoff = row.children[10].textContent;
+    const test = row.children[11].textContent;
+    const year = row.children[12].textContent;
+  
+      return (
+        name.includes(nameFilter.value.toLowerCase()) &&
+        (capacityFilter.value === '' || capacity === capacityFilter.value) &&
+        (voltageFilter.value === '' || voltage === voltageFilter.value) &&
+      (shapeFilter.value === '' || shape === shapeFilter.value) &&
+      (materialFilter.value === '' || material === materialFilter.value) &&
+      (ahFilter.value === '' || ah === ahFilter.value) &&
+      (temperatureFilter.value === '' || temperature  === temperatureFilter.value) &&
+      (kneeFilter.value === '' || knee === kneeFilter.value) &&
+      (chargeFilter.value === '' || charge === chargeFilter.value) &&
+      (dischargeFilter.value === '' || discharge === dischargeFilter.value) &&
+      (cutoffFilter.value === '' || cutoff === cutoffFilter.value) &&
+      (testFilter.value === '' || test === testFilter.value) &&
+      (yearFilter.value === '' || year === yearFilter.value)
+
+      );
+    });
+    return filteredRows;
+  }
+
+  function paginateRows(rows) {
+    const startIndex = (currentPage - 1) * rowsPerPage;
+    const endIndex = startIndex + rowsPerPage;
+    return rows.slice(startIndex, endIndex);
+  }
+
+  function displayRows(rows) {
+    // 清空表格
+    table.getElementsByTagName('tbody')[0].innerHTML = '';
+
+    // 将筛选后的行添加到表格
+    rows.forEach(row => {
+      table.getElementsByTagName('tbody')[0].appendChild(row);
+    });
+  }
+
+  function displayPaginationLinks(rows) {
+    const numPages = Math.ceil(rows.length / rowsPerPage);
+
+    // 生成页码链接
+    let linksHtml = '';
+    for (let i = 1; i <= numPages; i++) {
+      const isActive = i === currentPage ? 'active' : '';
+      linksHtml += `<span class="page-link ${isActive}">${i}</span>`;
+    }
+    document.getElementsByClassName(
+      'pagination-links'
+    )[0].innerHTML = linksHtml;
+
+    // 给每个链接绑定点击事件
+    const pageLinks = Array.from(document.getElementsByClassName('page-link'));
+    pageLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        currentPage = parseInt(link.textContent);
+        displayRows(paginateRows(filterRows()));
+        displayPaginationLinks(filterRows());
+      });
+    });
+  }
+
+  function goToPage() {
+    const pageNumber = parseInt(goToPageInput.value);
+    if (pageNumber >= 1 && pageNumber <= Math.ceil(filterRows().length / rowsPerPage)) {
+      currentPage = pageNumber;
+      displayRows(paginateRows(filterRows()));
+      displayPaginationLinks(filterRows());
+    }
+    goToPageInput.value = '';
+  }
+
+  // 初始加载时显示第一页
+  displayRows(paginateRows(filterRows()));
+  displayPaginationLinks(filterRows());
+
+  // 绑定事件监听器
+  filterButton.addEventListener('click', () => {
+    currentPage = 1;
+    displayRows(paginateRows(filterRows()));
+    displayPaginationLinks(filterRows());
+  });
+
+  goToPageButton.addEventListener('click', goToPage);
+
+  goToPageInput.addEventListener('keypress', e => {
+    if (e.key === 'Enter') {
+      goToPage();
+    }
+  });
+</script>
+</body>
+</html>
